@@ -1,6 +1,7 @@
-# Nuxt 3 Minimal Starter
+# Time
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+- [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction)
+- [Day.js documentation](https://day.js.org/docs/en/installation/installation)
 
 ## Setup
 
