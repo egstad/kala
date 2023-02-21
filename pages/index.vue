@@ -1,227 +1,63 @@
 <template>
   <div>
-    <h1>Index</h1>
-    <hr />
-    <div class="clock">{{ now.format("hh:mm:ss:SSS") }}</div>
+    <div class="progress">
+      <p class="label">Second</p>
+      <div
+        class="current"
+        :style="{ width: `${progressToNextSecond * 100}%` }"
+      ></div>
+    </div>
 
-    <h2>Minute</h2>
-    <table>
-      <tr>
-        <td>til end of minute (ms)</td>
-        <td>{{ now.endOf("minute").diff(now, "milliseconds") }}</td>
-      </tr>
-      <tr>
-        <td>minute progress (%)</td>
-        <td>
-          {{
-            1 -
-            now.endOf("minute").diff(now, "milliseconds") / (dayInMS / 24 / 60)
-          }}
-        </td>
-      </tr>
-    </table>
+    <div class="progress">
+      <p class="label">Minute</p>
+      <div
+        class="current"
+        :style="{ width: `${progressToNextMinute * 100}%` }"
+      ></div>
+    </div>
 
-    <h2>Hour</h2>
-    <table>
-      <tr>
-        <td>til end of hour (ms)</td>
-        <td>{{ now.endOf("hour").diff(now, "milliseconds") }}</td>
-      </tr>
-      <tr>
-        <td>hourly progress (%)</td>
-        <td>
-          {{ 1 - now.endOf("hour").diff(now, "milliseconds") / (dayInMS / 24) }}
-        </td>
-      </tr>
-    </table>
+    <div class="progress">
+      <p class="label">Hour</p>
+      <div
+        class="current"
+        :style="{ width: `${progressToNextHour * 100}%` }"
+      ></div>
+    </div>
 
-    <h2>Day</h2>
-    <table>
-      <tr>
-        <td>til end of day (ms)</td>
-        <td>{{ now.endOf("day").diff(now, "milliseconds") }}</td>
-      </tr>
-      <tr>
-        <td>daily progress (%)</td>
-        <td>
-          {{ 1 - now.endOf("day").diff(now, "milliseconds") / dayInMS }}
-        </td>
-      </tr>
-    </table>
+    <div class="progress">
+      <p class="label">Day</p>
+      <div
+        class="current"
+        :style="{ width: `${progressToNextDay * 100}%` }"
+      ></div>
+    </div>
 
-    <h2>Month</h2>
-    <table>
-      <tr>
-        <td>til end of month (days)</td>
-        <td>{{ now.endOf("month").diff(now, "days") }}</td>
-      </tr>
-      <tr>
-        <td>til end of month (ms)</td>
-        <td>{{ now.endOf("month").diff(now, "milliseconds") }}</td>
-      </tr>
-      <tr>
-        <td>monthly progress (%)</td>
-        <td>
-          {{
-            1 -
-            now.endOf("month").diff(now, "milliseconds") /
-              (now.daysInMonth() * dayInMS)
-          }}
-        </td>
-      </tr>
-    </table>
+    <div class="progress">
+      <p class="label">Week</p>
+      <div
+        class="current"
+        :style="{ width: `${progressToNextWeek * 100}%` }"
+      ></div>
+    </div>
 
-    <hr />
+    <div class="progress">
+      <p class="label">Month</p>
+      <div
+        class="current"
+        :style="{ width: `${progressToNextMonth * 100}%` }"
+      ></div>
+    </div>
 
-    <h2>Year</h2>
-    <table>
-      <tr>
-        <td>til end of year (days)</td>
-        <td>{{ daysInYear - now.dayOfYear() }}</td>
-      </tr>
-      <tr>
-        <td>til end of year (ms)</td>
-        <td>
-          {{ now.endOf("year").diff(now, "milliseconds") }}
-        </td>
-      </tr>
-      <tr>
-        <td>yearly progress (%)</td>
-        <td>
-          {{
-            1 -
-            now.endOf("year").diff(now, "milliseconds") / (daysInYear * dayInMS)
-          }}
-        </td>
-      </tr>
-    </table>
+    <div class="progress">
+      <p class="label">Year</p>
+      <div
+        class="current"
+        :style="{ width: `${progressToNextYear * 100}%` }"
+      ></div>
+    </div>
 
-    <table style="display: none">
-      <tr>
-        <td>now</td>
-        <td>
-          <DateTimePicker v-model="dateFrom" />
-        </td>
-        <td>{{ dateFrom }}</td>
-      </tr>
-      <tr>
-        <td>then</td>
-        <td>
-          <DateTimePicker :currentValue="dateTo" />
-        </td>
-        <td>{{ dateTo }}</td>
-      </tr>
-      <tr>
-        <td>difference</td>
-        <td>{{ now.diff(dateTo, "seconds") }}</td>
-      </tr>
-    </table>
-    <hr />
-
-    <ClientOnly fallback-tag="span" fallback="Loading...">
-      <table style="display: none">
-        <thead>
-          <tr>
-            <td>Property</td>
-            <td>Currently</td>
-            <td>Until next (in ms)</td>
-          </tr>
-        </thead>
-        <tr>
-          <td>timezone</td>
-          <td>{{ timezone }}</td>
-          <td></td>
-        </tr>
-
-        <tr>
-          <td>now</td>
-          <td>{{ now }}</td>
-          <td></td>
-        </tr>
-
-        <tr>
-          <td>now (in ms)</td>
-          <td>{{ now.valueOf() }}</td>
-          <td></td>
-        </tr>
-
-        <tr>
-          <td>clock</td>
-          <td>{{ now.format("hh:mm:ss::SSS a") }}</td>
-          <td></td>
-        </tr>
-
-        <tr>
-          <td>year</td>
-          <td>{{ now.format("YYYY") }}</td>
-          <td>{{ now.diff("2024-01-01", "SSS") }}</td>
-          <td>
-            {{ percentageToZero(now.diff("2024-01-01", "SSS"), 9999) }}
-          </td>
-        </tr>
-
-        <tr>
-          <td>month</td>
-          <td>{{ now.format("MM") }}</td>
-          <td>{{ now.diff(now.endOf("month"), "SSS") }}</td>
-          <td>
-            <!-- now(18)/28 = 0.64285714  -->
-            <!-- {{ percentageToZero(now.valueOf(), now.endOf("month").valueOf()) }} -->
-            {{ now.endOf("month").valueOf() - now }}
-          </td>
-        </tr>
-
-        <!-- <tr>
-          <td>week</td>
-          <td>{{ now.week() }}</td>
-          <td>{{ now.diff(now.endOf("week"), "SSS") }}</td>
-          <td>
-            {{
-              percentageToZero(now.diff(now.endOf("week"), "SSS"), 604800000)
-            }}
-          </td>
-        </tr> -->
-
-        <tr>
-          <td>day</td>
-          <td>{{ now.format("DD") }}</td>
-          <td>{{ now.diff(now.endOf("day"), "SSS") }}</td>
-          <td>
-            {{ percentageToZero(now.diff(now.endOf("day"), "SSS"), 86400000) }}
-          </td>
-        </tr>
-
-        <tr>
-          <td>hour</td>
-          <td>{{ now.format("hh") }}</td>
-          <td>{{ now.diff(now.endOf("hour"), "SSS") }}</td>
-          <td>
-            {{ percentageToZero(now.diff(now.endOf("hour"), "SSS"), 3600000) }}
-          </td>
-        </tr>
-
-        <tr>
-          <td>minute</td>
-          <td>{{ now.format("mm") }}</td>
-          <td>{{ now.diff(now.endOf("minute"), "SSS") }}</td>
-          <td>
-            {{ percentageToZero(now.diff(now.endOf("minute"), "SSS"), 60000) }}
-          </td>
-        </tr>
-
-        <tr>
-          <td>second</td>
-          <td>{{ now.format("ss") }}</td>
-          <td>{{ now.diff(now.endOf("second"), "SSS") }}</td>
-          <td>
-            {{ percentageToZero(now.diff(now.endOf("second"), "SSS"), 1000) }}
-          </td>
-        </tr>
-      </table>
-
-      <button @click="update()">Start!</button>
-      <button @click="destroy()">Stop!</button>
-    </ClientOnly>
+    <button @click="update()">Start!</button>
+    <button @click="destroy()">Stop!</button>
   </div>
 </template>
 
@@ -271,6 +107,53 @@ export default {
         this.fromDate = val;
       },
     },
+    millisecondsToEndOfSecond() {
+      return this.now.endOf("second").diff(this.now, "milliseconds");
+    },
+    millisecondsToEndOfMinute() {
+      return this.now.endOf("minute").diff(this.now, "milliseconds");
+    },
+    millisecondsToEndOfHour() {
+      return this.now.endOf("hour").diff(this.now, "milliseconds");
+    },
+    millisecondsToEndOfDay() {
+      return this.now.endOf("day").diff(this.now, "milliseconds");
+    },
+    millisecondsToEndOfWeek() {
+      return this.now.endOf("week").diff(this.now, "SSS");
+    },
+    millisecondsToEndOfMonth() {
+      return this.now.endOf("month").diff(this.now, "milliseconds");
+    },
+    millisecondsToEndOfYear() {
+      return this.now.endOf("year").diff(this.now, "milliseconds");
+    },
+    progressToNextSecond() {
+      return 1 - this.millisecondsToEndOfSecond / 1000;
+    },
+    progressToNextMinute() {
+      return 1 - this.millisecondsToEndOfMinute / (this.dayInMS / 24 / 60);
+    },
+    progressToNextHour() {
+      return 1 - this.millisecondsToEndOfHour / (this.dayInMS / 24);
+    },
+    progressToNextDay() {
+      return 1 - this.millisecondsToEndOfDay / this.dayInMS;
+    },
+    progressToNextWeek() {
+      return 1 - this.millisecondsToEndOfWeek / (this.dayInMS * 6);
+    },
+    progressToNextMonth() {
+      return (
+        1 -
+        this.millisecondsToEndOfMonth / (this.now.daysInMonth() * this.dayInMS)
+      );
+    },
+    progressToNextYear() {
+      return (
+        1 - this.millisecondsToEndOfYear / (this.daysInYear * this.dayInMS)
+      );
+    },
   },
   methods: {
     setup() {
@@ -299,25 +182,33 @@ export default {
 };
 </script>
 
-<style lang="css" scoped>
-tr,
-td {
-  border: 1px solid black;
-  padding: 0.25em 0.5em;
-  font-family: monospace;
+<style lang="css">
+:root {
+  --height: 10em;
 }
 
-thead {
-  background: #000;
-  color: white;
+.progress {
+  background: gray;
+  width: 100%;
+  height: var(--height);
+  display: block;
+  position: relative;
 }
-
-.clock {
-  position: fixed;
-  top: 0;
-  right: 0;
+.current {
   background: black;
+  height: var(--height);
+  display: block;
+}
+
+.label {
+  line-height: 0;
+  font-size: calc(var(--height) * 0.5);
+  font-family: sans-serif;
+  padding: 0;
   color: white;
-  font-family: monospace;
+  mix-blend-mode: exclusion;
+  position: absolute;
+  top: 0;
+  left: 0.5em;
 }
 </style>
