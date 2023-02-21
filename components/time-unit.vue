@@ -21,15 +21,11 @@ export default {
 </script>
 
 <style lang="css">
-:root {
-  --height: 2em;
-}
-
 .progress {
   background: pink;
   width: 100%;
   height: var(--height);
-  display: block;
+  display: flex;
   position: relative;
 }
 .current {
@@ -40,7 +36,7 @@ export default {
 }
 
 .label {
-  line-height: 0;
+  line-height: 1;
   font-size: calc(var(--height) * 0.5);
   font-family: "BradfordMono_8-3-Regular";
   padding: 0;
