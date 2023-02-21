@@ -1,154 +1,41 @@
 <template>
   <div>
-    <div class="clock">{{ this.now.format("hh:mm:ss") }}</div>
-    <div class="progress">
-      <p class="label">Second: {{ progressToNextSecond.toFixed(3) }}</p>
-      <div
-        class="current"
-        :style="{ width: `${progressToNextSecond * 100}%` }"
-      ></div>
-    </div>
-
-    <div class="progress">
-      <p class="label">
-        Decasecond (10s): {{ progressToNextDecasecond.toFixed(3) }}
-      </p>
-      <div
-        class="current"
-        :style="{ width: `${progressToNextDecasecond * 100}%` }"
-      ></div>
-    </div>
-
-    <div class="progress">
-      <p class="label">Minute: {{ progressToNextMinute.toFixed(3) }}</p>
-      <div
-        class="current"
-        :style="{ width: `${progressToNextMinute * 100}%` }"
-      ></div>
-    </div>
-
-    <div class="progress">
-      <p class="label">
-        Hectosecond (100s): {{ progressToNextHectosecond.toFixed(3) }}
-      </p>
-      <div
-        class="current"
-        :style="{ width: `${progressToNextHectosecond * 100}%` }"
-      ></div>
-    </div>
-
-    <div class="progress">
-      <p class="label">
-        Kilosecond (16.6m): {{ progressToNextKilosecond.toFixed(3) }}
-      </p>
-      <div
-        class="current"
-        :style="{ width: `${progressToNextKilosecond * 100}%` }"
-      ></div>
-    </div>
-
-    <div class="progress">
-      <p class="label">Hour: {{ progressToNextHour.toFixed(3) }}</p>
-      <div
-        class="current"
-        :style="{ width: `${progressToNextHour * 100}%` }"
-      ></div>
-    </div>
-
-    <div class="progress">
-      <p class="label">Day: {{ progressToNextDay.toFixed(3) }}</p>
-      <div
-        class="current"
-        :style="{ width: `${progressToNextDay * 100}%` }"
-      ></div>
-    </div>
-
-    <div class="progress">
-      <p class="label">Week: {{ progressToNextWeek.toFixed(3) }}</p>
-      <div
-        class="current"
-        :style="{ width: `${progressToNextWeek * 100}%` }"
-      ></div>
-    </div>
-
-    <div class="progress">
-      <p class="label">
-        Megasecond (11.57days): {{ progressToNextMegasecond.toFixed(3) }}
-      </p>
-      <div
-        class="current"
-        :style="{ width: `${progressToNextMegasecond * 100}%` }"
-      ></div>
-    </div>
-
-    <div class="progress">
-      <p class="label">Month: {{ progressToNextMonth.toFixed(3) }}</p>
-      <div
-        class="current"
-        :style="{ width: `${progressToNextMonth * 100}%` }"
-      ></div>
-    </div>
-
-    <div class="progress">
-      <p class="label">Year: {{ progressToNextYear.toFixed(3) }}</p>
-      <div
-        class="current"
-        :style="{ width: `${progressToNextYear * 100}%` }"
-      ></div>
-    </div>
-
-    <div class="progress">
-      <p class="label">
-        Decade (10 years): {{ progressToNextDecade.toFixed(3) }}
-      </p>
-      <div
-        class="current"
-        :style="{ width: `${progressToNextDecade * 100}%` }"
-      ></div>
-    </div>
-
-    <div class="progress">
-      <p class="label">
-        Gigasecond (31.7 years): {{ progressToNextGigasecond.toFixed(3) }}
-      </p>
-      <div
-        class="current"
-        :style="{ width: `${progressToNextGigasecond * 100}%` }"
-      ></div>
-    </div>
-
-    <div class="progress">
-      <p class="label">
-        Century (100 years): {{ progressToNextCentury.toFixed(3) }}
-      </p>
-      <div
-        class="current"
-        :style="{ width: `${progressToNextCentury * 100}%` }"
-      ></div>
-    </div>
-
-    <div class="progress">
-      <p class="label">
-        Millenium (1000 years): {{ progressToNextMillennium.toFixed(3) }}
-      </p>
-      <div
-        class="current"
-        :style="{ width: `${progressToNextMillennium * 100}%` }"
-      ></div>
-    </div>
-
-    <div class="progress">
-      <p class="label">
-        Terasecond (31,700 years): {{ progressToNextTerasecond.toFixed(3) }}
-      </p>
-      <div
-        class="current"
-        :style="{ width: `${progressToNextTerasecond * 100}%` }"
-      ></div>
-    </div>
-
+    <div class="clock">{{ now.format("hh:mm:ss") }}</div>
     <button @click="update()">Start!</button>
     <button @click="destroy()">Stop!</button>
+
+    <!-- Fractions of a second -->
+    <!-- <TimeUnit title="Jiffy (0.01s)" :progress="nextJiffy" /> -->
+    <!-- <TimeUnit title="Blink (0.25s)" :progress="nextBlink" /> -->
+
+    <!-- A second or more -->
+    <TimeUnit title="Second" :progress="nextSecond" />
+    <TimeUnit title="Helek (3.3s)" :progress="nextHelek" />
+    <TimeUnit title="Decasecond (10s)" :progress="nextDecasecond" />
+
+    <!-- A minute or more -->
+    <TimeUnit title="Minute" :progress="nextMinute" />
+    <TimeUnit title="Milliday (86.4s)" :progress="nextMilliday" />
+    <TimeUnit title="Moment (90s)" :progress="nextMoment" />
+    <TimeUnit title="Hectosecond (100s)" :progress="nextHectosecond" />
+    <TimeUnit title="Kilosecond (16.6m)" :progress="nextKilosecond" />
+
+    <!-- A hour or more -->
+    <TimeUnit title="Hour" :progress="nextHour" />
+
+    <!-- A day or more -->
+    <TimeUnit title="Day" :progress="nextDay" />
+    <TimeUnit title="Week" :progress="nextWeek" />
+    <TimeUnit title="Megasecond" :progress="nextMegasecond" />
+    <TimeUnit title="Month" :progress="nextMonth" />
+
+    <!-- A year or more -->
+    <TimeUnit title="Year" :progress="nextYear" />
+    <TimeUnit title="Decade" :progress="nextDecade" />
+    <TimeUnit title="Gigasecond (31.7y)" :progress="nextGigasecond" />
+    <TimeUnit title="Century (100y)" :progress="nextCentury" />
+    <TimeUnit title="Millennium (1000y)" :progress="nextMillennium" />
+    <TimeUnit title="Terasecond (31,700y)" :progress="nextTerasecond" />
   </div>
 </template>
 
@@ -194,10 +81,15 @@ export default {
       durationYottasecond: null,
       durationRonnasecond: null,
       durationQuettasecond: null,
-      //
       durationDecade: null,
       durationCentury: null,
       durationMillennium: null,
+      durationBlink: null,
+      durationHelek: null,
+      durationMoment: null,
+      durationNanocentury: null,
+      durationMilliday: null,
+      durationJiffy: null,
     };
   },
   created() {
@@ -216,69 +108,89 @@ export default {
         this.fromDate = val;
       },
     },
-    progressToNextSecond() {
+    nextSecond() {
       const msLeft = this.now.endOf("second").diff(this.now, "milliseconds");
       return this.percentage(msLeft, this.durationSecond);
     },
-    progressToNextMinute() {
+    nextMinute() {
       const msLeft = this.now.endOf("minute").diff(this.now, "milliseconds");
       return this.percentage(msLeft, this.dayInMS / 24 / 60);
     },
-    progressToNextHour() {
+    nextHour() {
       const msLeft = this.now.endOf("hour").diff(this.now, "milliseconds");
       return this.percentage(msLeft, this.dayInMS / 24);
     },
-    progressToNextDay() {
+    nextDay() {
       const msLeft = this.now.endOf("day").diff(this.now, "milliseconds");
       return this.percentage(msLeft, this.dayInMS);
     },
-    progressToNextWeek() {
+    nextWeek() {
       const msLeft = this.now.endOf("week").diff(this.now);
       return this.percentage(msLeft, this.dayInMS * 7);
     },
-    progressToNextMonth() {
+    nextMonth() {
       const msLeft = this.now.endOf("month").diff(this.now, "milliseconds");
       return this.percentage(msLeft, this.now.daysInMonth() * this.dayInMS);
     },
-    progressToNextYear() {
+    nextYear() {
       const msLeft = this.now.endOf("year").diff(this.now, "milliseconds");
       return this.percentage(msLeft, this.daysInYear * this.dayInMS);
     },
-    progressToNextDecasecond() {
+    nextDecasecond() {
       const msLeft = this.now.diff(this.unixEpoch) % this.durationDecasecond;
       return 1 - this.percentage(msLeft, this.durationDecasecond);
     },
-    progressToNextHectosecond() {
+    nextHectosecond() {
       const msLeft = this.now.diff(this.unixEpoch) % this.durationHectosecond;
       return 1 - this.percentage(msLeft, this.durationHectosecond);
     },
-    progressToNextKilosecond() {
+    nextKilosecond() {
       const msLeft = this.now.diff(this.unixEpoch) % this.durationKilosecond;
       return 1 - this.percentage(msLeft, this.durationKilosecond);
     },
-    progressToNextMegasecond() {
+    nextMegasecond() {
       const msLeft = this.now.diff(this.unixEpoch) % this.durationMegasecond;
       return 1 - this.percentage(msLeft, this.durationMegasecond);
     },
-    progressToNextGigasecond() {
+    nextGigasecond() {
       const msLeft = this.now.diff(this.unixEpoch) % this.durationGigasecond;
       return 1 - this.percentage(msLeft, this.durationGigasecond);
     },
-    progressToNextTerasecond() {
+    nextTerasecond() {
       const msLeft = this.now.diff(this.unixEpoch) % this.durationTerasecond;
       return 1 - this.percentage(msLeft, this.durationTerasecond);
     },
-    progressToNextDecade() {
+    nextDecade() {
       const msLeft = this.now.diff(this.unixEpoch) % this.durationDecade;
       return 1 - this.percentage(msLeft, this.durationDecade);
     },
-    progressToNextCentury() {
+    nextCentury() {
       const msLeft = this.now.diff(this.unixEpoch) % this.durationCentury;
       return 1 - this.percentage(msLeft, this.durationCentury);
     },
-    progressToNextMillennium() {
+    nextMillennium() {
       const msLeft = this.now.diff(this.unixEpoch) % this.durationMillennium;
       return 1 - this.percentage(msLeft, this.durationMillennium);
+    },
+    nextJiffy() {
+      const msLeft = this.now.diff(this.unixEpoch) % this.durationJiffy;
+      return 1 - this.percentage(msLeft, this.durationJiffy);
+    },
+    nextBlink() {
+      const msLeft = this.now.diff(this.unixEpoch) % this.durationBlink;
+      return 1 - this.percentage(msLeft, this.durationBlink);
+    },
+    nextHelek() {
+      const msLeft = this.now.diff(this.unixEpoch) % this.durationHelek;
+      return 1 - this.percentage(msLeft, this.durationHelek);
+    },
+    nextMilliday() {
+      const msLeft = this.now.diff(this.unixEpoch) % this.durationMilliday;
+      return 1 - this.percentage(msLeft, this.durationMilliday);
+    },
+    nextMoment() {
+      const msLeft = this.now.diff(this.unixEpoch) % this.durationMoment;
+      return 1 - this.percentage(msLeft, this.durationMoment);
     },
   },
   methods: {
@@ -287,16 +199,28 @@ export default {
       this.now = dayjs().tz(this.timezone);
       this.endOfDay = dayjs("2023-02-20T00:00").tz(this.timezone);
       this.daysInYear = this.now.isLeapYear() ? 366 : 365;
+
+      // common units
       this.durationDecade = 315532800 * this.durationSecond;
       this.durationCentury = 3155695200 * this.durationSecond;
       this.durationMillennium = 31536000000 * this.durationSecond;
+
+      // funny units
+      this.durationJiffy = this.seconds(0.01);
+      this.durationBlink = this.seconds(0.25);
+      this.durationHelek = this.seconds(3.333);
+      this.durationNanocentury = this.seconds(3.156);
+      this.durationMilliday = this.seconds(86.4);
+      this.durationMoment = this.seconds(90);
+      this.durationKe = this.seconds(900);
+
+      // second variations
       this.durationDecasecond = this.seconds(10);
       this.durationHectosecond = this.seconds(100);
       this.durationKilosecond = this.seconds(1000);
       this.durationMegasecond = this.seconds(1000000);
       this.durationGigasecond = this.seconds(1000000000);
       this.durationTerasecond = this.seconds(1000000000000);
-      // got to here..
       this.durationPetasecond = this.seconds(1000000000000000);
       this.durationExasecond = this.seconds(1000000000000000000);
       this.durationZettasecond = this.seconds(1000000000000000000000);
@@ -329,7 +253,7 @@ export default {
 
 <style lang="css">
 :root {
-  --height: 10em;
+  --height: 2em;
 }
 
 .progress {
@@ -343,6 +267,7 @@ export default {
   background: black;
   height: var(--height);
   display: block;
+  transition: all 10ms linear;
 }
 
 .label {
