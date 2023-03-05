@@ -1,54 +1,54 @@
 <template>
   <div class="gridz">
-    <Visualization title="Second" :progress="store.nextSecond" variant="line" />
-    <Visualization title="Minute" :progress="store.nextMinute" variant="line" />
-    <Visualization title="Hour" :progress="store.nextHour" variant="line" />
-    <Visualization title="Day" :progress="store.nextDay" variant="line" />
-    <Visualization title="Week" :progress="store.nextWeek" variant="line" />
-    <Visualization title="Month" :progress="store.nextMonth" variant="line" />
-    <Visualization title="Year" :progress="store.nextYear" variant="line" />
-    <Visualization title="Decade" :progress="store.nextDecade" variant="line" />
+    <Visualization title="Second" :progress="store.nextSecond" variant="pie" />
+    <Visualization title="Minute" :progress="store.nextMinute" variant="pie" />
+    <Visualization title="Hour" :progress="store.nextHour" variant="pie" />
+    <Visualization title="Day" :progress="store.nextDay" variant="pie" />
+    <Visualization title="Week" :progress="store.nextWeek" variant="pie" />
+    <Visualization title="Month" :progress="store.nextMonth" variant="pie" />
+    <Visualization title="Year" :progress="store.nextYear" variant="pie" />
+    <Visualization title="Decade" :progress="store.nextDecade" variant="pie" />
     <Visualization
       title="Century"
       :progress="store.nextCentury"
-      variant="line"
+      variant="pie"
     />
     <Visualization
       title="Millennium"
       :progress="store.nextMillennium"
-      variant="line"
+      variant="pie"
     />
 
     <!--  -->
     <Visualization
       title="Decasecond"
       :progress="store.nextDecasecond"
-      variant="line"
+      variant="pie"
     />
     <Visualization
       title="HectoSecond"
       :progress="store.nextHectosecond"
-      variant="line"
+      variant="pie"
     />
     <Visualization
       title="KiloSecond"
       :progress="store.nextKilosecond"
-      variant="line"
+      variant="pie"
     />
     <Visualization
       title="MegaSecond"
       :progress="store.nextMegasecond"
-      variant="line"
+      variant="pie"
     />
     <Visualization
       title="GigaSecond"
       :progress="store.nextGigasecond"
-      variant="line"
+      variant="pie"
     />
     <Visualization
       title="TeraSecond"
       :progress="store.nextTerasecond"
-      variant="line"
+      variant="pie"
     />
   </div>
 </template>
@@ -58,7 +58,7 @@ import { useTimeStore } from "@/stores/time";
 const store = useTimeStore();
 </script>
 
-<style>
+<style scoped>
 .gridz {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
