@@ -1,7 +1,9 @@
 <template>
   <div class="progress">
     <ClientOnly>
-      <p class="label">{{ title }}: {{ progress.toFixed(6) }}%</p>
+      <p class="label">
+        {{ name }}: <span>{{ progress.toFixed(6) }}%</span>
+      </p>
     </ClientOnly>
     <div class="line" ref="line"></div>
   </div>
@@ -12,16 +14,12 @@ import ProgressBar from "progressbar.js";
 
 export default {
   props: {
-    title: {
+    name: {
       type: String,
       require: true,
     },
     progress: {
       type: Number,
-      require: true,
-    },
-    inView: {
-      type: Boolean,
       require: true,
     },
   },
@@ -46,7 +44,6 @@ export default {
   },
   methods: {
     setProgress(percent) {
-      if (!this.inView) return;
       this.line.set(percent);
     },
   },

@@ -1,74 +1,40 @@
 <template>
   <div>
     <VisualizationsLine
-      v-if="variant == 'line'"
-      :title="title"
+      v-if="props.variant == 'line'"
       :progress="progress"
-      :in-view="inView"
+      :name="name"
     />
 
     <VisualizationsPie
-      v-else-if="variant == 'pie'"
-      :title="title"
+      v-else-if="props.variant == 'pie'"
       :progress="progress"
-      :in-view="inView"
     />
 
     <VisualizationsBand
-      v-else-if="variant == 'band'"
-      :title="title"
+      v-else-if="props.variant == 'band'"
       :progress="progress"
-      :in-view="inView"
     />
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    variant: {
-      type: String,
-      default: "line",
-      required: true,
-    },
-    title: {
-      type: String,
-      require: true,
-    },
-    progress: {
-      type: Number,
-      require: true,
-    },
+<script setup>
+const props = defineProps({
+  variant: {
+    type: String,
+    required: true,
   },
-  data() {
-    return {
-      observer: null,
-      inView: false,
-      observerOptions: {
-        rootMargin: "0px",
-        threshold: 0,
-      },
-    };
+  progress: {
+    type: Number,
+    required: true,
   },
-  beforeMount() {
-    this.observer = new IntersectionObserver(
-      this.observerCallback,
-      this.observerOptions
-    );
+  name: {
+    type: String,
+    required: false,
   },
-  beforeUnmount() {
-    this.observer.unobserve(this.$el);
-    this.observer.disconnect();
+  description: {
+    type: String,
+    required: false,
   },
-  mounted() {
-    this.observer.observe(this.$el);
-  },
-  methods: {
-    observerCallback(entries) {
-      entries.forEach(({ isIntersecting }) => {
-        this.inView = isIntersecting ? true : false;
-      });
-    },
-  },
-};
+});
 </script>

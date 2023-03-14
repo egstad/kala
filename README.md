@@ -41,3 +41,14 @@ npm run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+## Todo
+
+- Add "punct" : 15mins
+- Add QUADRANT: 6 hours
+- Add MILEWAY: 20mins
+- Add LOTR Trilogy: 11.4hrs
+- Pregnancy: 280days
+
+- Life expectancy: 73.16years
+- Methuselah: 969years

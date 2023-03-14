@@ -13,10 +13,6 @@ export default {
       type: Number,
       required: true,
     },
-    inView: {
-      type: Boolean,
-      require: true,
-    },
   },
   data() {
     return {
@@ -29,7 +25,6 @@ export default {
     },
   },
   mounted() {
-    console.log(this.inView);
     // add hue to window
     if (process.client) window.h = 0;
 
@@ -46,7 +41,6 @@ export default {
   },
   methods: {
     setProgress(percent) {
-      if (!this.inView) return;
       this.orbit.set(percent);
     },
   },

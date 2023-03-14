@@ -19,54 +19,54 @@ export const useTimeStore = defineStore("time", {
     epochFrom: "2000-01-01T00:00:00",
   }),
   getters: {
-    nextSecond: (state) => {
-      return percentageReverse(
-        state.now.endOf("second").diff(state.now),
-        state.duration.second
-      );
-    },
-    nextMinute: (state) => {
-      return percentageReverse(
-        state.now.endOf("minute").diff(state.now),
-        state.duration.minute
-      );
-    },
-    nextHour: (state) => {
-      return percentageReverse(
-        state.now.endOf("hour").diff(state.now),
-        state.duration.hour
-      );
-    },
-    nextDay: (state) => {
-      return percentageReverse(
-        state.now.endOf("day").diff(state.now),
-        state.duration.day
-      );
-    },
-    nextWeek: (state) => {
-      return percentageReverse(
-        state.now.endOf("week").diff(state.now),
-        state.duration.week
-      );
-    },
-    nextMonth: (state) => {
-      return percentageReverse(
-        state.now.endOf("month").diff(state.now),
-        state.duration.day * state.now.daysInMonth()
-      );
-    },
-    nextYear: (state) => {
-      return percentageReverse(
-        state.now.endOf("year").diff(state.now),
-        state.duration.year
-      );
-    },
-    nextDecasecond: (state) => {
-      return percentage(
-        state.now.diff(state.epochFrom) % state.duration.decasecond,
-        state.duration.decasecond
-      );
-    },
+    // nextSecond: (state) => {
+    //   return percentageReverse(
+    //     state.now.endOf("second").diff(state.now),
+    //     state.duration.second
+    //   );
+    // },
+    // nextMinute: (state) => {
+    //   return percentageReverse(
+    //     state.now.endOf("minute").diff(state.now),
+    //     state.duration.minute
+    //   );
+    // },
+    // nextHour: (state) => {
+    //   return percentageReverse(
+    //     state.now.endOf("hour").diff(state.now),
+    //     state.duration.hour
+    //   );
+    // },
+    // nextDay: (state) => {
+    //   return percentageReverse(
+    //     state.now.endOf("day").diff(state.now),
+    //     state.duration.day
+    //   );
+    // },
+    // nextWeek: (state) => {
+    //   return percentageReverse(
+    //     state.now.endOf("week").diff(state.now),
+    //     state.duration.week
+    //   );
+    // },
+    // nextMonth: (state) => {
+    //   return percentageReverse(
+    //     state.now.endOf("month").diff(state.now),
+    //     state.duration.day * state.now.daysInMonth()
+    //   );
+    // },
+    // nextYear: (state) => {
+    //   return percentageReverse(
+    //     state.now.endOf("year").diff(state.now),
+    //     state.duration.year
+    //   );
+    // },
+    // nextDecasecond: (state) => {
+    //   return percentage(
+    //     state.now.diff(state.epochFrom) % state.duration.decasecond,
+    //     state.duration.decasecond
+    //   );
+    // },
     nextHectosecond: (state) => {
       return percentage(
         state.now.diff(state.epochFrom) % state.duration.hectosecond,
@@ -97,12 +97,12 @@ export const useTimeStore = defineStore("time", {
         state.duration.terasecond
       );
     },
-    nextDecade: (state) => {
-      return percentage(
-        state.now.diff(state.epochFrom) % state.duration.decade,
-        state.duration.decade
-      );
-    },
+    // nextDecade: (state) => {
+    //   return percentage(
+    //     state.now.diff(state.epochFrom) % state.duration.decade,
+    //     state.duration.decade
+    //   );
+    // },
     nextCentury: (state) => {
       return percentage(
         state.now.diff(state.epochFrom) % state.duration.century,

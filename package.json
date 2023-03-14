@@ -12,11 +12,13 @@
   },
   "dependencies": {
     "@pinia/nuxt": "^0.4.7",
+    "@vue/composition-api": "^1.7.1",
     "dayjs": "^1.11.7",
     "install": "^0.13.0",
     "npm": "^9.5.1",
     "pinia": "^2.0.32",
-    "progressbar.js": "^1.1.0"
+    "progressbar.js": "^1.1.0",
+    "vue-composable": "^1.0.0-beta.24"
   },
   "overrides": {
     "vue": "latest"

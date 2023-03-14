@@ -20,7 +20,6 @@ export default {
   watch: {
     progress(newValue, oldValue) {
       this.state = newValue;
-      // console.log(this.state);
       return;
     },
   },
