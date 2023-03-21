@@ -1,5 +1,9 @@
 # Time
 
+> [My](https://egstad.com) personal [horilogical](https://en.wikipedia.org/wiki/Horology) experiment.
+
+## Built with:
+
 - [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction)
 - [Day.js documentation](https://day.js.org/docs/en/installation/installation)
 
@@ -52,3 +56,20 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 
 - Life expectancy: 73.16years
 - Methuselah: 969years
+
+# Refactor
+
+[x] Blink
+[x] Century
+[x] Second
+
+# Inputs
+
+- [Time scale](https://en.wikipedia.org/wiki/Time_scale)
+
+# Add later
+
+- [Traditional Chinese timekeeping](https://en.wikipedia.org/wiki/Traditional_Chinese_timekeeping)
+- [Hindu units of time](https://en.wikipedia.org/wiki/Hindu_units_of_time)
+- [Roman timekeeping](https://en.wikipedia.org/wiki/Roman_timekeeping)
+- [Thai six-hour clock](https://en.wikipedia.org/wiki/Thai_six-hour_clock)

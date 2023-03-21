@@ -1,8 +1,8 @@
 import { percentage } from "@/assets/scripts/mathPercentage";
-import { secToMsec } from "@/assets/scripts/mathSecondsToMilliseconds";
+import { minutesToMsec } from "@/assets/scripts/mathMinutesToSeconds";
 
 // 1. update this! remember to keep in in milliseconds!
-const durationMsec = secToMsec(900);
+const durationMsec = minutesToMsec(14.4);
 const isClientSide: boolean = typeof window !== "undefined";
 const store = isClientSide ? window?.__NUXT__?.pinia.time : null;
 const epoch = isClientSide ? store.epochFrom || "2000-01-01T00:00:00" : null;

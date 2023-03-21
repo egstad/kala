@@ -1,12 +1,15 @@
 <template>
-  <div ref="observerRef">
-    <ClientOnly>
-      <Visualization
-        :progress="progress"
-        :variant="props.variant"
-        name="Month"
-      />
-    </ClientOnly>
+  <div
+    ref="observerRef"
+    :class="['time', $options.__name.replace('time-', 'time--')]"
+    :data-duration="durationMsec"
+  >
+    <Visualization
+      :progress="progress"
+      :variant="props.variant"
+      class="time__content"
+      name="Month"
+    />
   </div>
 </template>
 
@@ -15,7 +18,8 @@ import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useTimeStore } from "@/stores/time";
 import { useIntersectionObserver } from "vue-composable";
-import { getProgress } from "@/assets/scripts/time/month";
+import { percentageReverse } from "@/assets/scripts/mathPercentage";
+import { daysToMsec } from "~/assets/scripts/mathDaysToMilliseconds";
 
 /* ----------------------------------------------------------------------------
  * Fetch the variant prop. This decides which visualization is rendered.
@@ -32,13 +36,22 @@ const { now } = storeToRefs(useTimeStore());
 watch(now, (time) => updateProgress(time));
 
 /* ----------------------------------------------------------------------------
+ * Set duration of this time unit in MSEC
+ * ------------------------------------------------------------------------- */
+
+// const durationMsec = minutesToMsec(60);
+const durationMsec = daysToMsec(now.value.daysInMonth());
+
+/* ----------------------------------------------------------------------------
  * Based on "now's" time, set the progress (0.0-1.0)
  * ------------------------------------------------------------------------- */
 const progress = ref(0);
 
 const updateProgress = (time) => {
   if (!observer.isIntersecting.value) return;
-  progress.value = getProgress(time);
+  const msecDifference = time.endOf("month").diff(time);
+
+  progress.value = percentageReverse(msecDifference, durationMsec);
 };
 
 /* ----------------------------------------------------------------------------
@@ -48,7 +61,5 @@ const updateProgress = (time) => {
 const observerRef = ref(null);
 const observer = useIntersectionObserver(observerRef);
 
-onBeforeUnmount(() => {
-  observer.disconnect();
-});
+onBeforeUnmount(() => observer.disconnect());
 </script>

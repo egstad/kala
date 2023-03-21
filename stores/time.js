@@ -67,58 +67,61 @@ export const useTimeStore = defineStore("time", {
     //     state.duration.decasecond
     //   );
     // },
-    nextHectosecond: (state) => {
-      return percentage(
-        state.now.diff(state.epochFrom) % state.duration.hectosecond,
-        state.duration.hectosecond
-      );
-    },
-    nextKilosecond: (state) => {
-      return percentage(
-        state.now.diff(state.epochFrom) % state.duration.kilosecond,
-        state.duration.kilosecond
-      );
-    },
-    nextMegasecond: (state) => {
-      return percentage(
-        state.now.diff(state.epochFrom) % state.duration.megasecond,
-        state.duration.megasecond
-      );
-    },
-    nextGigasecond: (state) => {
-      return percentage(
-        state.now.diff(state.epochFrom) % state.duration.gigasecond,
-        state.duration.gigasecond
-      );
-    },
-    nextTerasecond: (state) => {
-      return percentage(
-        state.now.diff(state.epochFrom) % state.duration.terasecond,
-        state.duration.terasecond
-      );
-    },
+    // nextHectosecond: (state) => {
+    //   return percentage(
+    //     state.now.diff(state.epochFrom) % state.duration.hectosecond,
+    //     state.duration.hectosecond
+    //   );
+    // },
+    // nextKilosecond: (state) => {
+    //   return percentage(
+    //     state.now.diff(state.epochFrom) % state.duration.kilosecond,
+    //     state.duration.kilosecond
+    //   );
+    // },
+    // nextMegasecond: (state) => {
+    //   return percentage(
+    //     state.now.diff(state.epochFrom) % state.duration.megasecond,
+    //     state.duration.megasecond
+    //   );
+    // },
+    // nextGigasecond: (state) => {
+    //   return percentage(
+    //     state.now.diff(state.epochFrom) % state.duration.gigasecond,
+    //     state.duration.gigasecond
+    //   );
+    // },
+    // nextTerasecond: (state) => {
+    //   return percentage(
+    //     state.now.diff(state.epochFrom) % state.duration.terasecond,
+    //     state.duration.terasecond
+    //   );
+    // },
     // nextDecade: (state) => {
     //   return percentage(
     //     state.now.diff(state.epochFrom) % state.duration.decade,
     //     state.duration.decade
     //   );
     // },
-    nextCentury: (state) => {
-      return percentage(
-        state.now.diff(state.epochFrom) % state.duration.century,
-        state.duration.century
-      );
-    },
-    nextMillennium: (state) => {
-      return percentage(
-        state.now.diff(state.epochFrom) % state.duration.millennium,
-        state.duration.millennium
-      );
-    },
+    // nextCentury: (state) => {
+    //   return percentage(
+    //     state.now.diff(state.epochFrom) % state.duration.century,
+    //     state.duration.century
+    //   );
+    // },
+    // nextMillennium: (state) => {
+    //   return percentage(
+    //     state.now.diff(state.epochFrom) % state.duration.millennium,
+    //     state.duration.millennium
+    //   );
+    // },
   },
   actions: {
     update(val) {
       this.now = val;
+    },
+    updateEpoch(val) {
+      this.epochFrom = val;
     },
   },
 });

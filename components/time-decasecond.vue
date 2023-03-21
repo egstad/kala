@@ -1,12 +1,15 @@
 <template>
-  <div ref="observerRef">
-    <ClientOnly>
-      <Visualization
-        :progress="progress"
-        :variant="props.variant"
-        name="Decasecond"
-      />
-    </ClientOnly>
+  <div
+    ref="observerRef"
+    :class="['time', $options.__name.replace('time-', 'time--')]"
+    :data-duration="durationMsec"
+  >
+    <Visualization
+      :progress="progress"
+      :variant="props.variant"
+      class="time__content"
+      name="Decasecond"
+    />
   </div>
 </template>
 
@@ -15,7 +18,13 @@ import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useTimeStore } from "@/stores/time";
 import { useIntersectionObserver } from "vue-composable";
-import { getProgress } from "@/assets/scripts/time/decasecond";
+import { percentage } from "@/assets/scripts/mathPercentage";
+import { secToMsec } from "@/assets/scripts/mathSecondsToMilliseconds";
+
+/* ----------------------------------------------------------------------------
+ * Set duration of this time unit in MSEC
+ * ------------------------------------------------------------------------- */
+const durationMsec = secToMsec(10);
 
 /* ----------------------------------------------------------------------------
  * Fetch the variant prop. This decides which visualization is rendered.
@@ -24,10 +33,11 @@ import { getProgress } from "@/assets/scripts/time/decasecond";
 const props = defineProps(["variant"]);
 
 /* ----------------------------------------------------------------------------
- * Get and then watch the time ("now") from the store
+ * Get and then watch the time from the store
  * ------------------------------------------------------------------------- */
 
 const { now } = storeToRefs(useTimeStore());
+const { epochFrom } = storeToRefs(useTimeStore());
 
 watch(now, (time) => updateProgress(time));
 
@@ -38,7 +48,9 @@ const progress = ref(0);
 
 const updateProgress = (time) => {
   if (!observer.isIntersecting.value) return;
-  progress.value = getProgress(time);
+  const msecDifference = time.diff(epochFrom.value) % durationMsec;
+
+  progress.value = percentage(msecDifference, durationMsec);
 };
 
 /* ----------------------------------------------------------------------------
@@ -48,7 +60,5 @@ const updateProgress = (time) => {
 const observerRef = ref(null);
 const observer = useIntersectionObserver(observerRef);
 
-onBeforeUnmount(() => {
-  observer.disconnect();
-});
+onBeforeUnmount(() => observer.disconnect());
 </script>

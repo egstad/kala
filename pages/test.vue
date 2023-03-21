@@ -1,34 +1,67 @@
 <template>
-  <div>
-    <!-- <TimeSecond variant="pie" /> -->
-    <!-- <TimeMinute variant="pie" /> -->
-    <!-- <TimeHour variant="pie" /> -->
-    <!-- <TimeDay variant="pie" /> -->
-    <!-- <TimeWeek variant="pie" /> -->
-    <!-- <TimeMonth variant="pie" /> -->
-    <!-- <TimeYear variant="pie" /> -->
-    <!-- <TimeDecade variant="pie" /> -->
-    <!-- <TimeCentury variant="pie" /> -->
-    <!-- <TimeMillennium variant="pie" /> -->
+  <div ref="grid" class="grid">
+    <DateTimePicker :value="store.epochFrom" @input="onInput($event)" />
+    <DateTimePicker :value="store.now.format('YYYY-MM-DDTHH:mm:ss')" disabled />
 
-    <!-- <TimeDecasecond variant="pie" /> -->
-    <!-- <TimeHectosecond variant="pie" /> -->
-    <!-- <TimeKilosecond variant="pie" /> -->
-    <!-- <TimeMegasecond variant="pie" /> -->
-    <!-- <TimeGigasecond variant="pie" /> -->
-    <!-- <TimeTerasecond variant="pie" /> -->
+    <div class="spacer"></div>
 
-    <!-- <TimeBlink variant="pie" /> -->
-    <!-- <TimeHelek variant="pie" /> -->
-    <!-- <TimeNanocentury variant="pie" /> -->
-    <!-- <TimeMicrocentury variant="pie" /> -->
-    <!-- <TimeScaramucci variant="pie" /> -->
-    <!-- <TimeGhurry variant="pie" /> -->
-    <!-- <TimeMilliday variant="pie" /> -->
-    <!-- <TimeMoment variant="pie" /> -->
-    <!-- <TimeKe variant="pie" /> -->
-    <!-- <TimeLustre variant="pie" /> -->
-
-    <TimeTest variant="line" />
+    <TimeBlink variant="line" />
+    <TimeSecond variant="line" />
+    <TimeDecasecond variant="line" />
+    <TimeDay variant="line" />
+    <TimeFortnight variant="line" />
+    <TimeDecade variant="line" />
+    <TimeCentury variant="line" />
+    <TimeGhurry variant="line" />
+    <TimeGigasecond variant="line" />
+    <TimeHectosecond variant="line" />
+    <TimeHelek variant="line" />
+    <TimeHour variant="line" />
+    <TimeKe variant="line" />
+    <TimeKilosecond variant="line" />
+    <TimeLustre variant="line" />
+    <TimeMegasecond variant="line" />
+    <TimeMillennium variant="line" />
+    <TimeMilliday variant="line" />
+    <TimeMinute variant="line" />
+    <TimeMoment variant="line" />
+    <TimeMonth variant="line" />
+    <TimeNanocentury variant="line" />
+    <TimeScaramucci variant="line" />
+    <TimeTerasecond variant="line" />
+    <TimeWeek variant="line" />
+    <TimeYear variant="line" />
   </div>
 </template>
+
+<script setup>
+import { ref, onMounted, nextTick } from "vue";
+import shuffle from "shufflejs";
+
+const grid = ref(null);
+
+onMounted(() => {
+  console.log();
+
+  const shuffleInstance = new shuffle(grid.value, {
+    itemSelector: ".time",
+    sizer: ".spacer",
+  });
+
+  nextTick(() => {
+    shuffleInstance.sort(() => element.dataset.duration);
+  });
+});
+
+const store = useTimeStore();
+
+const onInput = (event) => {
+  store.updateEpoch(event.target.value);
+};
+</script>
+
+<style>
+.spacer {
+  width: 100vw;
+}
+</style>

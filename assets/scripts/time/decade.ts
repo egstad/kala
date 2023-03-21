@@ -14,7 +14,7 @@ export const durationMsec = () => {
   const decadeBeginning = dayjs(`${start}-01-01`);
   const decadeEnd = dayjs(`${end}-01-01`);
 
-  return decadeEnd.diff(decadeBeginning);
+  return decadeBeginning.diff(decadeEnd);
 };
 
 export const getMsecDifference = (now: any) => {
