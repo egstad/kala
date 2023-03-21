@@ -12,4 +12,8 @@ export default defineNuxtConfig({
   imports: {
     dirs: ["stores"],
   },
+  components: {
+    global: true,
+    dirs: ["~/components"],
+  },
 });

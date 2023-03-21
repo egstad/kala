@@ -1,34 +1,31 @@
 <template>
   <div class="gridzie">
+    <TimeBlink variant="line" />
     <TimeSecond variant="line" />
-    <TimeMinute variant="line" />
-    <TimeHour variant="line" />
+    <TimeDecasecond variant="line" />
     <TimeDay variant="line" />
-    <TimeWeek variant="line" />
-    <TimeMonth variant="line" />
-    <TimeYear variant="line" />
+    <TimeFortnight variant="line" />
     <TimeDecade variant="line" />
     <TimeCentury variant="line" />
-    <TimeMillennium variant="line" />
-
-    <TimeDecasecond variant="line" />
-    <TimeHectosecond variant="line" />
-    <TimeKilosecond variant="line" />
-    <TimeMegasecond variant="line" />
-    <TimeGigasecond variant="line" />
-    <TimeTerasecond variant="line" />
-
-    <TimeBlink variant="line" />
-    <TimeHelek variant="line" />
-    <TimeNanocentury variant="line" />
-    <TimeMicrocentury variant="line" />
-    <TimeScaramucci variant="line" />
     <TimeGhurry variant="line" />
-    <TimeMilliday variant="line" />
-    <TimeMoment variant="line" />
+    <TimeGigasecond variant="line" />
+    <TimeHectosecond variant="line" />
+    <TimeHelek variant="line" />
+    <TimeHour variant="line" />
     <TimeKe variant="line" />
+    <TimeKilosecond variant="line" />
     <TimeLustre variant="line" />
-    <TimeFortnight variant="line" />
+    <TimeMegasecond variant="line" />
+    <TimeMillennium variant="line" />
+    <TimeMilliday variant="line" />
+    <TimeMinute variant="line" />
+    <TimeMoment variant="line" />
+    <TimeMonth variant="line" />
+    <TimeNanocentury variant="line" />
+    <TimeScaramucci variant="line" />
+    <TimeTerasecond variant="line" />
+    <TimeWeek variant="line" />
+    <TimeYear variant="line" />
   </div>
 </template>
 
