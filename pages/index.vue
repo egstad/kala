@@ -1,68 +1,131 @@
 <template>
-  <div class="gridz">
-    <Visualization title="Second" :progress="store.nextSecond" variant="line" />
-    <Visualization title="Minute" :progress="store.nextMinute" variant="line" />
-    <Visualization title="Hour" :progress="store.nextHour" variant="line" />
-    <Visualization title="Day" :progress="store.nextDay" variant="line" />
-    <Visualization title="Week" :progress="store.nextWeek" variant="line" />
-    <Visualization title="Month" :progress="store.nextMonth" variant="line" />
-    <Visualization title="Year" :progress="store.nextYear" variant="line" />
-    <Visualization title="Decade" :progress="store.nextDecade" variant="line" />
-    <Visualization
-      title="Century"
-      :progress="store.nextCentury"
-      variant="line"
-    />
-    <Visualization
-      title="Millennium"
-      :progress="store.nextMillennium"
-      variant="line"
-    />
+  <div>
+    <table>
+      <tbody>
+        <tr>
+          <td>Selected State:</td>
+          <td>{{ store.selectedStyle }}</td>
+          <td>
+            <select v-model="style" @change="onStyleChange">
+              <option v-for="style in store.supportedStyles" :value="style">
+                {{ style }}
+              </option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Zoom</td>
+          <td>
+            <input
+              v-model="zoom"
+              type="range"
+              @input="onZoomChange"
+              name="zoom"
+              min="1"
+              max="6"
+              style="direction: rtl"
+            />
+          </td>
+          <td v-if="userEditedColumnCount">
+            <button @click="resetColumnCount">Disable Override</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br />
 
-    <!--  -->
-    <Visualization
-      title="Decasecond"
-      :progress="store.nextDecasecond"
-      variant="line"
-    />
-    <Visualization
-      title="HectoSecond"
-      :progress="store.nextHectosecond"
-      variant="line"
-    />
-    <Visualization
-      title="KiloSecond"
-      :progress="store.nextKilosecond"
-      variant="line"
-    />
-    <Visualization
-      title="MegaSecond"
-      :progress="store.nextMegasecond"
-      variant="line"
-    />
-    <Visualization
-      title="GigaSecond"
-      :progress="store.nextGigasecond"
-      variant="line"
-    />
-    <Visualization
-      title="TeraSecond"
-      :progress="store.nextTerasecond"
-      variant="line"
-    />
+    <div class="gridzie" ref="timeUnits">
+      <component
+        v-for="(unit, index) in store.supportedTimeUnits"
+        :key="unit + index"
+        :is="`time-${unit}`"
+        :variant="style"
+      />
+    </div>
   </div>
 </template>
 
 <script setup>
-import { useTimeStore } from "@/stores/time";
+import { ref, reactive, onMounted, onBeforeUnmount, onBeforeMount } from "vue";
+
 const store = useTimeStore();
+const style = ref(store.selectedStyle);
+const timeUnits = ref(null);
+
+onMounted(() => {
+  updateColumnCount();
+});
+
+/* ----------------------------------------------------------------------------
+ * Style select dropdown
+ * ------------------------------------------------------------------------- */
+
+const onStyleChange = (event) => store.updateStyle(event.target.value);
+
+/* ----------------------------------------------------------------------------
+ * Zoom
+ * ------------------------------------------------------------------------- */
+
+const zoom = ref(2);
+const onZoomChange = (event) => {
+  userEditedColumnCount.value = true;
+  // updateColumns(event.target.value);
+};
+const resetColumnCount = (event) => {
+  userEditedColumnCount.value = false;
+  updateColumnCount();
+};
+
+/* ----------------------------------------------------------------------------
+ * Handle Zoom Dynamically
+ * ------------------------------------------------------------------------- */
+
+const userEditedColumnCount = ref(false);
+
+const updateColumnCount = (ev) => {
+  if (userEditedColumnCount.value) return;
+
+  const width = window.innerWidth;
+  let colCount = 2;
+
+  if (width < 576) {
+    colCount = 1;
+  } else if (width < 768) {
+    colCount = 2;
+  } else if (width < 992) {
+    colCount = 3;
+  } else if (width < 1200) {
+    colCount = 4;
+  } else if (width < 1600) {
+    colCount = 5;
+  } else {
+    colCount = 6;
+  }
+
+  zoom.value = colCount;
+};
+
+if (process.client) {
+  window.addEventListener("resize", updateColumnCount);
+}
 </script>
 
 <style>
-.gridz {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-  grid-gap: 0.5rem;
-  padding: 0.5rem;
+.style-filter {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 999;
 }
+.gridzie {
+  display: grid;
+  grid-template-columns: repeat(v-bind(zoom), 1fr);
+  grid-gap: 2px;
+  padding: 2px;
+}
+
+/* :deep(.gridzie) :deep(*) {
+  display: flex;
+  width: 100%;
+} */
 </style>
