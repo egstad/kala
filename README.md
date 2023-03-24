@@ -1,6 +1,7 @@
 # Time
 
 > [My](https://egstad.com) personal [horilogical](https://en.wikipedia.org/wiki/Horology) experiment.
+> [![Netlify Status](https://api.netlify.com/api/v1/badges/a4ccd1aa-76a1-4174-a164-900f78d519b9/deploy-status)](https://app.netlify.com/sites/horilogy/deploys)
 
 ## Built with:
 
