@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <component :is="timeUnitComponent" :variant="variant" />
   </div>
 </template>
@@ -18,3 +18,16 @@ if (!isSupportedUnit()) {
 
 const timeUnitComponent = resolveComponent(`time-${unit}`);
 </script>
+
+<style lang="css" scoped>
+.container {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+}
+
+.container :deep(*) {
+  flex: 1 1;
+  display: flex;
+}
+</style>

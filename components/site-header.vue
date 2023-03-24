@@ -8,6 +8,9 @@
 </template>
 
 <style scoped>
+.nav {
+}
+
 .nav ul {
   display: flex;
 }

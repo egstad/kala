@@ -15,6 +15,17 @@
       v-else-if="props.variant == 'band'"
       :progress="progress"
     />
+
+    <VisualizationsZoom
+      v-else-if="props.variant == 'zoom'"
+      :progress="progress"
+    />
+
+    <VisualizationsTextRing
+      v-else-if="props.variant == 'text-ring'"
+      :progress="progress"
+      :name="name"
+    />
   </div>
 </template>
 

@@ -14,6 +14,9 @@ export const useTimeStore = defineStore("time", {
   state: () => ({
     now,
     epochFrom: "2000-01-01T00:00:00",
+    selectedStyle: "text-ring",
+    selectedTimeUnit: null,
+    supportedStyles: ["band", "line", "pie", "zoom", "text-ring"],
     supportedTimeUnits: [
       "blink",
       "century",
@@ -50,6 +53,9 @@ export const useTimeStore = defineStore("time", {
     },
     updateEpoch(val) {
       this.epochFrom = val;
+    },
+    updateStyle(val) {
+      this.selectedStyle = val;
     },
   },
 });

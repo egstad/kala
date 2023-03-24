@@ -16,4 +16,12 @@ export default defineNuxtConfig({
     global: true,
     dirs: ["~/components"],
   },
+  build: {
+    transpile: [
+      // "mixitup",
+      // "three",
+      // "three/examples/jsm/controls/OrbitControls",
+      // "three/examples/jsm/lights/LightProbeGenerator",
+    ],
+  },
 });
