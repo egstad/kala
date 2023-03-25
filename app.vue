@@ -4,3 +4,41 @@
     <NuxtPage />
   </div>
 </template>
+
+<script setup>
+// import deviceResize from "@/plugins/deviceResize.client";
+import { ref, onMounted } from "vue";
+import dayjs from "dayjs";
+import dayjsIsLeapYear from "dayjs/plugin/isLeapYear";
+import dayjsTimezone from "dayjs/plugin/timezone";
+import dayjsUTC from "dayjs/plugin/utc";
+dayjs.extend(dayjsTimezone);
+dayjs.extend(dayjsIsLeapYear);
+dayjs.extend(dayjsUTC);
+
+const nuxtApp = useNuxtApp();
+
+onMounted(() => {
+  if (!process.client) return;
+  nuxtApp.$deviceResize.init();
+});
+
+/* ----------------------------------------------------------------------------
+ * Let's keep an eye on the time, shall we?
+ * ------------------------------------------------------------------------- */
+
+const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+const timeStore = useTimeStore();
+const storeUI = useUIStore();
+let raf = ref(null);
+
+const timeNowUpdate = () => {
+  if (!process.client) return;
+  timeStore.update(dayjs().tz(timezone));
+  raf.value = window.requestAnimationFrame(timeNowUpdate);
+};
+
+const timeNowDestroy = () => cancelAnimationFrame(raf.value);
+
+timeNowUpdate();
+</script>

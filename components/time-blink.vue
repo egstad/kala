@@ -18,7 +18,7 @@ import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useTimeStore } from "@/stores/time";
 import { useIntersectionObserver } from "vue-composable";
-import { percentageReverse } from "@/assets/scripts/mathPercentage";
+import { percentage } from "@/assets/scripts/mathPercentage";
 import { secToMsec } from "@/assets/scripts/mathSecondsToMilliseconds";
 
 /* ----------------------------------------------------------------------------
@@ -50,7 +50,7 @@ const updateProgress = (time) => {
   if (!observer.isIntersecting.value) return;
   const msecDifference = time.diff(epochFrom.value) % durationMsec;
 
-  progress.value = percentageReverse(msecDifference, durationMsec);
+  progress.value = percentage(msecDifference, durationMsec);
 };
 
 /* ----------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 <template>
   <div class="progress">
     <ClientOnly>
-      <p class="label">{{ title }}: {{ progress.toFixed(6) }}%</p>
+      <p class="label">{{ title }}: {{ progress }}%</p>
     </ClientOnly>
     <div class="line" ref="line"></div>
   </div>

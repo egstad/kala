@@ -3,7 +3,7 @@
     <svg
       viewBox="0 0 100 100"
       xmlns="http://www.w3.org/2000/svg"
-      :style="`transform: rotate(${progress.toFixed(3) * 360}deg)`"
+      :style="`transform: rotate(${progress * 360}deg)`"
     >
       <path
         id="Circle"
@@ -17,10 +17,10 @@
       />
 
       <text font-size="16" letter-spacing="1">
-        <!-- <textPath href="#Circle">{{ name }}</textPath> -->
-        <textPath href="#Circle">
+        <textPath href="#Circle">{{ name }}</textPath>
+        <!-- <textPath href="#Circle">
           {{ name }} • {{ (progress.toFixed(4) * 100).toFixed(2) }}%
-        </textPath>
+        </textPath> -->
       </text>
     </svg>
   </div>

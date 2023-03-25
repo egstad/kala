@@ -40,7 +40,7 @@ watch(now, (time) => updateProgress(time));
  * ------------------------------------------------------------------------- */
 
 // const durationMsec = minutesToMsec(60);
-const durationMsec = daysToMsec(now.value.daysInMonth());
+const durationMsec = daysToMsec(now?.value?.daysInMonth());
 
 /* ----------------------------------------------------------------------------
  * Based on "now's" time, set the progress (0.0-1.0)

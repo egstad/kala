@@ -1,7 +1,9 @@
 export function percentage(part: number, whole: number) {
-  return part / whole;
+  const result = part / whole;
+  return Number(result.toFixed(3));
 }
 
 export function percentageReverse(part: number, whole: number) {
-  return 1 - part / whole;
+  const result = 1 - part / whole;
+  return Number(result.toFixed(3));
 }

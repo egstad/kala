@@ -13,14 +13,13 @@
 Make sure to install the dependencies:
 
 ```bash
-# yarn
-yarn install
+# step 1: use proper node version
+# if you use nvm, like me, run this:
+nvm use
 
-# npm
+# step 2: install depenencies (
+# i use npm. but use whatever package manager makes sense.
 npm install
-
-# pnpm
-pnpm install
 ```
 
 ## Development Server
