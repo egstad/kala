@@ -12,6 +12,7 @@
 </template>
 
 <script setup>
+import gsap from "gsap";
 import { storeToRefs } from "pinia";
 
 const storeTime = useTimeStore();
@@ -19,6 +20,35 @@ const storeUI = useUIStore();
 storeUI.updateStyle("Home");
 
 const zoom = storeToRefs(storeUI).zoomSelected;
+
+definePageMeta({
+  pageTransition: {
+    mode: "out-in",
+    onBeforeEnter: (el) => {
+      gsap.set(el, {
+        opacity: 0,
+        y: "10px",
+      });
+    },
+    onEnter: (el, done) => {
+      gsap.to(el, {
+        opacity: 1,
+        y: "0",
+        duration: 1,
+        delay: 0.5,
+        ease: "power3.out",
+        onComplete: done,
+      });
+    },
+    onLeave(el, done) {
+      gsap.to(el, {
+        opacity: 0,
+        y: "10px",
+        onComplete: done,
+      });
+    },
+  },
+});
 </script>
 
 <style scoped>

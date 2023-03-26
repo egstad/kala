@@ -106,17 +106,17 @@ const updateColumnCount = (ev) => {
   const width = window.innerWidth;
   let colCount;
 
-  if (width < 480) {
+  if (width < 640) {
     colCount = 1;
-  } else if (width < 640) {
-    colCount = 2;
   } else if (width < 960) {
+    colCount = 2;
+  } else if (width < 1440) {
     colCount = 3;
-  } else if (width < 1280) {
-    colCount = 4;
-  } else if (width < 1600) {
-    colCount = 5;
   } else if (width < 1920) {
+    colCount = 4;
+  } else if (width < 2560) {
+    colCount = 5;
+  } else {
     colCount = 6;
   }
 

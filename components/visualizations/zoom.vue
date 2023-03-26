@@ -40,11 +40,13 @@ export default {
   justify-content: flex-start;
   align-items: center;
   flex: 1 1;
+  aspect-ratio: 1 / 1;
 }
 
 .zoom__frame {
   background: black;
   flex: 1 1;
   display: flex;
+  aspect-ratio: 1 / 1;
 }
 </style>
