@@ -214,6 +214,10 @@ header {
   z-index: 999;
   width: 100vw;
   padding: 0 calc(var(--unit) * 0.5);
+
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
 }
 
 .nav ul {
