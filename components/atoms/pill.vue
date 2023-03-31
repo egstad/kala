@@ -35,6 +35,7 @@ const slots = useSlots();
 
 .pill__label {
   padding: calc(var(--unit) * 0.5) var(--unit);
+  white-space: nowrap;
 }
 
 .pill__input {
@@ -58,6 +59,11 @@ const slots = useSlots();
   line-height: inherit;
 }
 
+.pill__input select,
+.pill__input input[type="range"] {
+  min-width: calc(var(--unit) * 24);
+}
+
 .pill__input button {
   background: var(--color-accent);
   cursor: pointer;
@@ -70,6 +76,7 @@ const slots = useSlots();
   margin: 0;
   display: flex;
   flex: 1;
+  font-size: inherit;
 }
 
 .pill__input input[type="range"]::-webkit-slider-runnable-track {

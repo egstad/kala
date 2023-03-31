@@ -108,7 +108,11 @@ const onStyleChange = (ev) => {
       break;
 
     default:
-      path = `/${ev.target.value}/${time}`;
+      if (time === "All") {
+        path = `/${ev.target.value}`;
+      } else {
+        path = `/${ev.target.value}/${time}`;
+      }
       break;
   }
 
