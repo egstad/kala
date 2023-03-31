@@ -139,14 +139,6 @@ table {
   font-synthesis: none;
   box-sizing: border-box;
 }
-
-:root {
-  --unit: 8px;
-  --color-foreground: #000000;
-  --color-background: #ffffff;
-  --color-accent: #cef4f5;
-}
-
 *::before,
 *::after {
   box-sizing: border-box;
@@ -165,6 +157,11 @@ html {
   position: relative;
   scroll-behavior: smooth;
   font-family: "Mono";
+  font-size: var(--font-size);
+  background-color: var(--color-document);
+  color: var(--color-foreground);
+  transition: background-color var(--color-transition),
+    color var(--color-transition);
 }
 
 .screen-reader-only,

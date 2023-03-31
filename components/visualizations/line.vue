@@ -1,25 +1,27 @@
 <template>
-  <div class="progress">
-    <ClientOnly>
-      <p class="label">
-        {{ name }}: <span>{{ progress.toFixed(6) }}%</span>
-      </p>
-    </ClientOnly>
-    <div class="line" ref="line"></div>
+  <div class="canvas">
+    <div
+      class="bar progress"
+      ref="line"
+      :style="`width:${progress * 100}%`"
+    ></div>
+    <div class="bar timeline"></div>
   </div>
 </template>
 
 <script>
-import ProgressBar from "progressbar.js";
-
 export default {
   props: {
-    name: {
+    title: {
       type: String,
       require: true,
     },
     progress: {
       type: Number,
+      require: true,
+    },
+    inView: {
+      type: Boolean,
       require: true,
     },
   },
@@ -28,40 +30,37 @@ export default {
       line: null,
     };
   },
-  watch: {
-    progress(newValue, oldValue) {
-      return this.setProgress(newValue);
-    },
-  },
-  mounted() {
-    this.line = new ProgressBar.Line(this.$refs.line, {
-      color: "rgba(0,0,0,1)",
-      strokeWidth: 1,
-      trailColor: "rgba(0,0,0,0.1)",
-      trailWidth: 1,
-      svgStyle: { width: "100%", height: "100%" },
-    });
-  },
-  methods: {
-    setProgress(percent) {
-      this.line.set(percent);
-    },
-  },
 };
 </script>
 
-<style lang="css" scoped>
+<style scoped>
+.canvas {
+  height: 100%;
+  width: 100%;
+  background-color: var(--color-background);
+  transition: background-color var(--color-transition);
+  position: relative;
+}
+
+.bar {
+  position: absolute;
+  top: 50%;
+  height: calc(var(--unit) * 0.25);
+  transform: translate3d(0, calc(var(--unit) * -0.125), 0);
+  left: 0;
+}
+
 .progress {
-  margin-top: 64px;
+  width: 100%;
+  background-color: var(--color-foreground);
+  transition: background-color var(--color-transition);
+  z-index: 1;
 }
 
-.label {
-  font-family: monospace;
-  font-size: 12px;
-  line-height: 1;
-}
-
-.line {
-  height: 1px;
+.timeline {
+  width: 100%;
+  background-color: var(--color-document);
+  transition: background-color var(--color-transition);
+  z-index: 0;
 }
 </style>

@@ -1,8 +1,6 @@
 <template>
   <div class="zoom">
-    <div class="zoom__frame" :style="`transform: scale(${progress})`">
-      {{ progress }}
-    </div>
+    <div class="zoom__frame" :style="`transform: scale(${progress})`"></div>
   </div>
 </template>
 
@@ -34,19 +32,23 @@ export default {
 
 <style lang="css" scoped>
 .zoom {
-  background: gray;
+  background-color: var(--color-midground);
+  transition: background-color var(--color-transition);
   position: relative;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex: 1 1;
-  aspect-ratio: 1 / 1;
+  width: 100%;
+  height: 100%;
 }
 
 .zoom__frame {
-  background: black;
+  background-color: var(--color-document);
+  transition: background-color var(--color-transition);
   flex: 1 1;
   display: flex;
-  aspect-ratio: 1 / 1;
+  width: 100%;
+  height: 100%;
 }
 </style>

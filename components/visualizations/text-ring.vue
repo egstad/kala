@@ -1,28 +1,27 @@
 <template>
-  <div class="ring">
-    <svg
-      viewBox="0 0 100 100"
-      xmlns="http://www.w3.org/2000/svg"
-      :style="`transform: rotate(${progress * 360}deg)`"
-    >
-      <path
-        id="Circle"
-        fill="none"
-        d="
+  <div class="canvas">
+    <div class="wrap">
+      <svg
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+        :style="`transform: rotate(${progress * 360}deg)`"
+      >
+        <path
+          id="Circle"
+          class="circle"
+          d="
         M 50, 50
         m -50, 0
         a 50,50 0 1,0 100,0
         a 50,50 0 1,0 -100,0
         "
-      />
+        />
 
-      <text font-size="16" letter-spacing="1">
-        <textPath href="#Circle">{{ name }}</textPath>
-        <!-- <textPath href="#Circle">
-          {{ name }} • {{ (progress.toFixed(4) * 100).toFixed(2) }}%
-        </textPath> -->
-      </text>
-    </svg>
+        <text font-size="8" letter-spacing="1" class="text" dy="-5%">
+          <textPath href="#Circle">{{ name }}</textPath>
+        </text>
+      </svg>
+    </div>
   </div>
 </template>
 
@@ -53,12 +52,33 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.ring {
-  padding: 3%;
-  transform: rotate(90deg);
-  display: flex;
+.canvas {
+  padding: var(--unit);
+
+  background-color: var(--color-background);
   width: 100%;
   height: 100%;
-  justify-content: center;
+}
+
+.wrap {
+  transform: rotate(90deg);
+  width: 100%;
+  height: 100%;
+}
+
+svg {
+  width: 100%;
+  height: 100%;
+  /* object-fit: fit; */
+}
+
+.circle {
+  fill: var(--color-document);
+  transition: fill var(--color-transition);
+}
+
+.text {
+  fill: var(--color-foreground);
+  transition: fill var(--color-transition);
 }
 </style>

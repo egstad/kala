@@ -29,9 +29,9 @@ export default {
     if (process.client) window.h = 0;
 
     this.orbit = new ProgressBar.Circle(this.$refs.orbit, {
-      color: "rgba(0,0,0,1)",
+      color: "var(--color-foreground)",
       strokeWidth: 50,
-      trailColor: "rgba(0,0,0,0.1)",
+      trailColor: "var(--color-midground)",
       trailWidth: 50,
       step: (state, circle, attachment) => {
         // if (process.client) window.h++;

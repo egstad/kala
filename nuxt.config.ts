@@ -1,6 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  css: ["@/assets/reset.css"],
+  css: [
+    "@/assets/styles/vars.css",
+    "@/assets/styles/reset.css",
+    "@/assets/styles/time.css",
+  ],
   modules: [
     [
       "@pinia/nuxt",

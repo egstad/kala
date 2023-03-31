@@ -56,7 +56,7 @@ definePageMeta({
 .gridzie {
   display: grid;
   grid-template-columns: repeat(v-bind(zoom), 1fr);
-  grid-gap: 2px;
-  padding: 2px;
+  /* grid-gap: 2px; */
+  /* padding: 2px; */
 }
 </style>

@@ -27,8 +27,8 @@ const slots = useSlots();
   display: flex;
   align-items: center;
   padding: calc(var(--unit) * 0.5);
-  background-color: var(--color-foreground);
-  color: var(--color-background);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
   border-radius: var(--unit);
   line-height: 1;
 }
@@ -49,7 +49,7 @@ const slots = useSlots();
   appearance: none;
   outline: 0;
   border: 0;
-  background: var(--color-background);
+  background: var(--color-document);
   color: var(--color-foreground);
   border-radius: calc(var(--unit) * 0.25);
   padding: calc(var(--unit) * 0.5) var(--unit);
@@ -65,7 +65,7 @@ const slots = useSlots();
 }
 
 .pill__input button {
-  background: var(--color-accent);
+  background: var(--color-midground);
   cursor: pointer;
 }
 
@@ -74,15 +74,19 @@ const slots = useSlots();
   background: 0;
   cursor: pointer;
   margin: 0;
+  box-sizing: border-box;
+  /* margin-right: calc(var(--unit) * 0.25); */
   display: flex;
   flex: 1;
   font-size: inherit;
+  height: 100%;
+  width: 100%;
 }
 
 .pill__input input[type="range"]::-webkit-slider-runnable-track {
-  background: var(--color-background);
+  background: var(--color-document);
   border-radius: calc(var(--unit) * 0.25);
-  height: 100%;
+
   font-size: inherit;
 }
 

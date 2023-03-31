@@ -70,4 +70,16 @@ definePageMeta({
   width: 100%;
   height: 100%;
 }
+
+.grid :deep(.time) {
+  aspect-ratio: 1/1;
+  /* justify-self: center; */
+  align-self: center;
+  width: 100%;
+  height: 100%;
+}
+
+.grid :deep(.time__content) {
+  height: 100%;
+}
 </style>
