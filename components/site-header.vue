@@ -2,34 +2,72 @@
   <ClientOnly>
     <header>
       <h1 class="visually-hidden">Time, a project by Jordan Egstad.</h1>
-      <p>
-        <span class="screen-reader-only">Current Date:</span>
-        <span>{{ storeTime.now.format("MMMM DD, YYYY") }}</span>
-        <span>&nbsp;</span>
-        <span>&nbsp;</span>
-      </p>
 
-      <p @click="clock12Hour = !clock12Hour">
-        <span class="screen-reader-only">Current Time:</span>
-        <span v-if="clock12Hour">{{ storeTime.now.format("hh:mm:ss") }}</span>
-        <span v-else>{{ storeTime.now.format("HH:mm:ss") }}</span>
-      </p>
+      <AtomsPill>
+        <template #label>
+          <p>
+            <span class="screen-reader-only">Current Date:</span>
+            <span>{{ storeTime.now.format("MMMM DD, YYYY") }}</span>
+          </p>
+        </template>
+      </AtomsPill>
 
-      <nav class="nav">
-        <select v-model="storeUI.styleSelected" @change="onStyleChange">
-          <optgroup label="Pages">
-            <option>Home</option>
-          </optgroup>
-          <optgroup label="Visualization">
-            <option v-for="style in storeUI.styleList" :value="style">
-              {{ formatTitle(style) }}
-            </option>
-          </optgroup>
-        </select>
-      </nav>
+      <AtomsPill @click="clock12Hour = !clock12Hour">
+        <template #label>
+          <p>
+            <span class="screen-reader-only">Current Time:</span>
+            <span v-if="clock12Hour">{{
+              storeTime.now.format("hh:mm:ss")
+            }}</span>
+            <span v-else>{{ storeTime.now.format("HH:mm:ss") }}</span>
+          </p>
+        </template>
+      </AtomsPill>
 
-      <p>
-        <span>
+      <AtomsPill>
+        <template #label>
+          <p>Style:</p>
+        </template>
+        <template #input>
+          <nav class="nav">
+            <select v-model="storeUI.styleSelected" @change="onStyleChange">
+              <option v-for="style in storeUI.styleList" :value="style">
+                {{ formatTitle(style) }}
+              </option>
+            </select>
+          </nav>
+        </template>
+      </AtomsPill>
+
+      <AtomsPill>
+        <template #label>
+          <p>Time:</p>
+        </template>
+        <template #input>
+          <nav class="nav">
+            <select v-model="storeTime.timeSelectedUnit" @change="onTimeChange">
+              <optgroup label="Gallery">
+                <option>All</option>
+              </optgroup>
+              <optgroup label="Individual">
+                <option
+                  v-for="style in storeTime.timeUnitsSupported"
+                  :value="style"
+                >
+                  {{ formatTitle(style) }}
+                </option>
+              </optgroup>
+            </select>
+          </nav>
+        </template>
+      </AtomsPill>
+
+      <AtomsPill>
+        <template #label>
+          <p>Zoom:</p>
+        </template>
+
+        <template #input>
           <input
             v-model="storeUI.zoomSelected"
             type="range"
@@ -39,11 +77,15 @@
             max="6"
             style="direction: rtl"
           />
-        </span>
-        <span v-if="storeUI.zoomOverride">
-          <button @click="resetColumnCount">Disable Override</button>
-        </span>
-      </p>
+
+          <span
+            v-if="storeUI.zoomOverride"
+            style="margin-left: calc(var(--unit) * 0.5)"
+          >
+            <button @click="resetColumnCount">Reset</button>
+          </span>
+        </template>
+      </AtomsPill>
     </header>
   </ClientOnly>
 </template>
@@ -57,15 +99,34 @@ const router = useRouter();
 
 const onStyleChange = (ev) => {
   const page = ev.target.value;
+  let time = storeTime.timeSelectedUnit;
   let path;
 
   switch (page) {
-    case "Home":
+    case "All":
       path = "/";
       break;
 
     default:
-      path = `/${ev.target.value}`;
+      path = `/${ev.target.value}/${time}`;
+      break;
+  }
+
+  router.push({ path });
+};
+
+const onTimeChange = (ev) => {
+  const page = ev.target.value;
+  const style = storeUI.styleSelected;
+  let path;
+
+  switch (page) {
+    case "All":
+      path = `/${style}`;
+      break;
+
+    default:
+      path = `/${style}/${ev.target.value}`;
       break;
   }
 
@@ -148,6 +209,7 @@ header {
   left: 0;
   z-index: 999;
   width: 100vw;
+  padding: 0 calc(var(--unit) * 0.5);
 }
 
 .nav ul {

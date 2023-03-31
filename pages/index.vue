@@ -2,7 +2,7 @@
   <div>
     <div class="gridzie" ref="timeUnits">
       <component
-        v-for="(unit, index) in storeTime.supportedTimeUnits"
+        v-for="(unit, index) in storeTime.timeUnitsSupported"
         :key="unit + index"
         :is="`time-${unit}`"
         :variant="storeUI.styleDefault"
@@ -17,7 +17,8 @@ import { storeToRefs } from "pinia";
 
 const storeTime = useTimeStore();
 const storeUI = useUIStore();
-storeUI.updateStyle("Home");
+storeUI.updateStyle(storeUI.styleDefault);
+storeTime.updateTime(storeTime.timeUnitDefault);
 
 const zoom = storeToRefs(storeUI).zoomSelected;
 

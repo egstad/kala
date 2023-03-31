@@ -140,6 +140,13 @@ table {
   box-sizing: border-box;
 }
 
+:root {
+  --unit: 8px;
+  --color-foreground: #000000;
+  --color-background: #ffffff;
+  --color-accent: #cef4f5;
+}
+
 *::before,
 *::after {
   box-sizing: border-box;
@@ -157,6 +164,7 @@ html {
   overflow-y: scroll;
   position: relative;
   scroll-behavior: smooth;
+  font-family: "Mono";
 }
 
 .screen-reader-only,
@@ -168,4 +176,9 @@ html {
   clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
   -webkit-clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
   overflow: hidden !important;
+}
+
+@font-face {
+  font-family: "Mono";
+  src: url("@/assets/fonts/System-85-Mono.woff2") format("woff2");
 }

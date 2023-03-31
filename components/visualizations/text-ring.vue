@@ -56,5 +56,9 @@ export default {
 .ring {
   padding: 3%;
   transform: rotate(90deg);
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
 }
 </style>

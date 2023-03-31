@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onBeforeUnmount } from "vue";
 import { storeToRefs } from "pinia";
 import { useTimeStore } from "@/stores/time";
 import { useIntersectionObserver } from "vue-composable";

@@ -46,3 +46,18 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+figure {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.orbit {
+  display: flex;
+  width: 100%;
+  object-fit: contain;
+}
+</style>

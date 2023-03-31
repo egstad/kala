@@ -1,11 +1,6 @@
 <template>
   <div class="grid">
-    <component
-      v-for="(unit, index) in storeTime.timeUnitsSupported"
-      :key="unit + index"
-      :is="`time-${unit}`"
-      :variant="style"
-    />
+    <component :is="`time-${time}`" :variant="style" />
   </div>
 </template>
 
@@ -20,7 +15,7 @@ const storeUI = useUIStore();
 const storeTime = useTimeStore();
 const zoom = storeToRefs(storeUI).zoomSelected;
 const style = useRoute().params.visualizationStyle.toLowerCase();
-const time = useRoute()?.params?.time?.toLowerCase() || "All";
+const time = useRoute().params.time.toLowerCase();
 storeUI.updateStyle(style);
 storeTime.updateTime(time);
 
@@ -63,11 +58,21 @@ definePageMeta({
 
 <style scoped>
 .grid {
-  display: grid;
-  grid-template-columns: repeat(v-bind(zoom), 1fr);
-  grid-gap: 2px;
-  padding: 2px;
-  width: 100%;
+  overflow: hidden;
+}
+
+.grid,
+:deep(.time) {
+  display: flex;
+  width: 100vw;
   height: 100%;
+}
+
+:deep(.time__content) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
 }
 </style>

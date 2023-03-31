@@ -2,8 +2,9 @@ export const useTimeStore = defineStore("time", {
   state: () => ({
     now: null,
     epochFrom: "2000-01-01T00:00:00",
-    selectedTimeUnit: null,
-    supportedTimeUnits: [
+    timeUnitDefault: "All",
+    timeSelectedUnit: null,
+    timeUnitsSupported: [
       "blink",
       "century",
       "day",
@@ -39,6 +40,9 @@ export const useTimeStore = defineStore("time", {
     },
     updateEpoch(val) {
       this.epochFrom = val;
+    },
+    updateTime(val) {
+      this.timeSelectedUnit = val;
     },
   },
 });
