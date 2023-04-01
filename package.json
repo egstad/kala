@@ -20,6 +20,7 @@
     "isotope": "^1.0.0-alpha.3",
     "list.js": "^2.3.1",
     "npm": "^9.5.1",
+    "p5vue": "^0.0.7",
     "pinia": "^2.0.32",
     "progressbar.js": "^1.1.0",
     "shufflejs": "^6.1.0",

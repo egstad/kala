@@ -207,8 +207,9 @@ const formatTitle = (slug) => {
 
 <style scoped>
 header {
-  display: flex;
-  position: fixed;
+  display: inline-flex;
+  flex-wrap: wrap;
+  /* position: fixed;
   top: 0;
   left: 0;
   z-index: 999;
@@ -217,7 +218,7 @@ header {
 
   overflow-x: scroll;
   overflow-y: hidden;
-  white-space: nowrap;
+  white-space: nowrap; */
 }
 
 .nav ul {

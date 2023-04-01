@@ -57,12 +57,6 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 - Life expectancy: 73.16years
 - Methuselah: 969years
 
-# Refactor
-
-[x] Blink
-[x] Century
-[x] Second
-
 # Inputs
 
 - [Time scale](https://en.wikipedia.org/wiki/Time_scale)
