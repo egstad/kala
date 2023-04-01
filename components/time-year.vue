@@ -2,7 +2,7 @@
   <div
     ref="observerRef"
     :class="['time', $options.__name.replace('time-', 'time--')]"
-    :data-duration="durationMsec"
+    :data-duration="durationMsec()"
   >
     <Visualization
       :progress="progress"
@@ -40,7 +40,7 @@ watch(now, (time) => updateProgress(time));
  * ------------------------------------------------------------------------- */
 
 const durationMsec = () => {
-  const daysInYear = now.value.isLeapYear() ? 366 : 365;
+  const daysInYear = now.value?.isLeapYear() ? 366 : 365;
   return daysToMsec(daysInYear);
 };
 

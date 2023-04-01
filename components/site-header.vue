@@ -96,6 +96,7 @@ import { ref, onMounted } from "vue";
 const storeTime = useTimeStore();
 const clock12Hour = ref(true);
 const router = useRouter();
+const { $event } = useNuxtApp();
 
 const onStyleChange = (ev) => {
   const page = ev.target.value;
@@ -152,6 +153,9 @@ const onZoomChange = (event) => {
   } else {
     storeUI.updateZoomOverride(true);
   }
+
+  // tell the whole app something changed...
+  $event("ui:zoom");
 };
 
 const resetColumnCount = (event) => {
