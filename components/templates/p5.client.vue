@@ -5,15 +5,7 @@
 </template>
 
 <script setup>
-import {
-  ref,
-  onMounted,
-  watch,
-  onUnmounted,
-  toRaw,
-  nextTick,
-  defineProps,
-} from "vue";
+import { ref, onMounted, watch, onUnmounted, toRaw, nextTick } from "vue";
 import { storeToRefs } from "pinia";
 import { loadP5 } from "@/assets/scripts/utilLoadFile";
 import { useLibraryStore } from "@/stores/libraries";
@@ -25,7 +17,7 @@ const p5Canvas = ref();
 const p5Instance = ref(null);
 const { p5HasLoaded } = storeToRefs(useLibraryStore());
 const observer = new IntersectionObserver(observerCallback);
-const progress = defineProps(["progress"]);
+const nuxt = useNuxtApp();
 
 loadP5();
 
@@ -40,29 +32,12 @@ const sketch = function (p) {
   };
 
   p.draw = () => {
-    const d = 8;
-    const n = 12;
-
     p.resizeCanvas(getDimensions().width, getDimensions().height);
     p.background(50);
-
-    var k = (n * progress.progress) / d;
-    p.push();
-    p.translate(p.width / 2, p.height / 2);
-
-    p.beginShape();
-    p.stroke(255);
-    p.noFill();
-    p.strokeWeight(1);
-    for (var a = 0; a < p.TWO_PI * reduceDenominator(n, d); a += 0.02) {
-      var r = 200 * p.cos(k * a);
-      var x = r * p.cos(a);
-      var y = r * p.sin(a);
-      p.vertex(x, y);
-    }
-    p.endShape(p.CLOSE);
-    p.pop();
-    // p.noLoop();
+    p.rectMode(p.CENTER);
+    p.fill(255);
+    p.textSize(32);
+    p.text(p.frameCount, 10, 30);
   };
 
   p.windowResized = () => {
@@ -71,13 +46,6 @@ const sketch = function (p) {
 
   const getDimensions = () => {
     return p5El.value.getBoundingClientRect();
-  };
-
-  const reduceDenominator = (numerator, denominator) => {
-    function rec(a, b) {
-      return b ? rec(b, a % b) : a;
-    }
-    return denominator / rec(numerator, denominator);
   };
 };
 
