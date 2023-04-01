@@ -26,6 +26,12 @@
       :progress="progress"
       :name="name"
     />
+
+    <VisualizationsRose
+      v-else-if="props.variant == 'rose'"
+      :progress="progress"
+      :name="name"
+    />
   </div>
 </template>
 
