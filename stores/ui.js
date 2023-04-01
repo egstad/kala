@@ -5,7 +5,7 @@ export const useUIStore = defineStore("ui", {
     zoomOverride: false,
     styleSelected: null,
     styleDefault: "text-ring",
-    styleList: ["band", "line", "pie", "zoom", "text-ring"],
+    styleList: ["band", "line", "pie", "zoom", "text-ring", "rose"],
     windowWidth: null,
     windowHeight: null,
     docWidth: null,

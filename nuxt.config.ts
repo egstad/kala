@@ -1,10 +1,29 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  // app: {
+  //   head: {
+  //     script: [
+  //       {
+  //         src: "https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js",
+  //         async: true,
+  //       },
+  //     ],
+  //   },
+  // },
   css: [
     "@/assets/styles/vars.css",
     "@/assets/styles/reset.css",
     "@/assets/styles/time.css",
   ],
+  // head: {
+  //   script: [
+  //     {
+  //       src: "https://code.jquery.com/jquery-3.5.1.min.js",
+  //       async: true,
+  //       crossorigin: "anonymous"
+  //     },
+  //   ],
+  // },
   modules: [
     [
       "@pinia/nuxt",

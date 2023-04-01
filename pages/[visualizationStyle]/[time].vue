@@ -34,7 +34,6 @@ definePageMeta({
         y: "0",
         ease: "power3.out",
         onComplete: function () {
-          console.log(el);
           gsap.set(this.targets(), { clearProps: "all" });
           done();
         },
