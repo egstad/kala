@@ -14,7 +14,8 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import dayjs from "dayjs";
+import { ref, watch } from "vue";
 import { storeToRefs } from "pinia";
 import { useTimeStore } from "@/stores/time";
 import { useIntersectionObserver } from "vue-composable";
@@ -39,8 +40,7 @@ watch(now, (time) => updateProgress(time));
  * Set duration of this time unit in MSEC
  * ------------------------------------------------------------------------- */
 
-// const durationMsec = minutesToMsec(60);
-const durationMsec = daysToMsec(now?.value?.daysInMonth());
+const durationMsec = daysToMsec(dayjs().daysInMonth());
 
 /* ----------------------------------------------------------------------------
  * Based on "now's" time, set the progress (0.0-1.0)

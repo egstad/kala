@@ -1,7 +1,7 @@
 :root {
   --unit: 8px;
   --color-document: #000000;
-  --color-background: #101010;
+  --color-background: #222;
   --color-midground: #373737;
   --color-foreground: #9e9e9e;
   --color-transition: 400ms ease-out;

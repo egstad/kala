@@ -9,9 +9,8 @@ import { ref, onMounted, watch, onUnmounted, toRaw, nextTick } from "vue";
 import { storeToRefs } from "pinia";
 import { loadP5 } from "@/assets/scripts/utilLoadFile";
 import { useLibraryStore } from "@/stores/libraries";
-import uid from "easy-uid";
 import { getVariable } from "@/assets/scripts/utilGetVariable";
-
+import uid from "easy-uid";
 const raf = ref();
 const p5El = ref();
 const p5Id = uid();
@@ -27,59 +26,95 @@ loadP5();
  * P5.js stuff
  * ------------------------------------------------------------------------- */
 
-const background = getVariable("--color-background");
-const foreground = getVariable("--color-foreground");
-let a = 50;
-let speed = 0.01;
+function countDigits(number) {
+  return number.toString().length;
+}
 
 const sketch = function (p) {
-  let t = 0;
-  let n = 15;
-  let d = 20;
+  const getNormalizedPosition = () => {
+    const parent = p5El.value.parentNode.parentNode.parentNode;
+    const me = Number(p5El.value.parentNode.parentNode.dataset.duration);
+    const els = parent.querySelectorAll(".time");
+    const dataset = [];
+
+    for (var i = 0; i < els.length; i++) {
+      var duration = els[i].getAttribute("data-duration");
+      dataset.push(Number(duration));
+    }
+
+    const min = Math.min(...dataset);
+    const max = Math.max(...dataset);
+
+    function evaluatePosition(min, max, value) {
+      if (value <= min) {
+        return 0.0;
+      } else if (value >= max) {
+        return 1.0;
+      } else {
+        return parseFloat((value - min) / (max - min)).toFixed(4);
+      }
+    }
+
+    return evaluatePosition(min, max, me);
+  };
+
+  const getDimensions = () => {
+    return p5El?.value?.getBoundingClientRect();
+  };
+
+  const myDuration = Number(p5El.value.parentNode.parentNode.dataset.duration);
+  const myDigits = countDigits(myDuration) - 1;
+  const duration = myDuration * 0.01;
+  const numOfLines = myDigits * (myDigits * 2);
+  // const numOfLines = Math.min(Math.max(parseInt(duration), 5), 250);
+  let width = getDimensions().width;
+  let height = getDimensions().height;
+  let r = width * 0.5;
+  let prog = progress.progress;
+  let factor = duration;
+  let background = getVariable("--color-background");
+  let foreground = getVariable("--color-foreground");
 
   p.setup = () => {
-    p.createCanvas(getDimensions().width, getDimensions().height);
+    p.createCanvas(width, height);
     p.noLoop();
   };
 
   p.draw = () => {
-    p.resizeCanvas(getDimensions().width, getDimensions().height);
+    width = getDimensions().width;
+    height = getDimensions().height;
+    p.resizeCanvas(width, height);
+    r = width * 0.5;
+    prog = progress.progress * 360;
     p.background(background);
 
-    p.translate(p.width / 2, p.height / 2);
+    // p.background(0);
+    factor += 0.00024;
 
-    p.push();
-    rose(n, d);
+    p.translate(p.width / 2, p.height / 2);
+    p.stroke(foreground);
+    p.strokeWeight(1);
+    p.noFill();
+    p.ellipse(0, 0, r * 2);
+
+    for (let i = 0; i < numOfLines; i++) {
+      const a = getVector(i, numOfLines, r);
+      const b = getVector(i * factor, numOfLines, r);
+      p.line(a.x, a.y, b.x, b.y);
+    }
+
+    p.noLoop();
   };
 
   p.windowResized = () => {
     p.resizeCanvas(getDimensions().width, getDimensions().height);
   };
 
-  const getDimensions = () => {
-    return p5El.value.getBoundingClientRect();
-  };
-
-  function rose(n, d) {
-    p.noFill();
-    p.beginShape();
-    for (let angle = 0; angle < p.TWO_PI * d; angle += speed * 3) {
-      let k = n / d;
-
-      let x = a * p.cos(k * angle) * p.cos(angle);
-      let y = a * p.cos(k * angle) * p.sin(angle);
-
-      p.stroke(p.map(n * d, 1, 49, 0, 255), 255, 255);
-      p.vertex(x, y);
-    }
-    p.endShape();
-  }
-
-  const reduceDenominator = (numerator, denominator) => {
-    function rec(a, b) {
-      return b ? rec(b, a % b) : a;
-    }
-    return denominator / rec(numerator, denominator);
+  const getVector = (index, total, radius) => {
+    const angle = p.map(index % total, 0, total, 0, p.TWO_PI);
+    const v = window.p5.Vector.fromAngle(angle + p.PI);
+    v.mult(radius);
+    return v;
   };
 };
 
@@ -101,9 +136,11 @@ const p5Init = () => {
   nextTick(() => {
     const canvas = toRaw(p5Instance);
 
-    p5Instance.value = new window.p5(sketch, p5Id);
-    p5Canvas.value.appendChild(canvas._rawValue.canvas);
-    observer.observe(p5Canvas.value);
+    nextTick(() => {
+      p5Instance.value = new window.p5(sketch, p5Id);
+      p5Canvas.value.appendChild(canvas._rawValue.canvas);
+      observer.observe(p5Canvas.value);
+    });
 
     // nuxt.$listen("ui:zoom", () => {
     //   p5Instance.value.windowResized();

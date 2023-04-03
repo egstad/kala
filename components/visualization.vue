@@ -32,6 +32,12 @@
       :progress="progress"
       :name="name"
     />
+
+    <VisualizationsCardoid
+      v-else-if="props.variant == 'cardoid'"
+      :progress="progress"
+      :name="name"
+    />
   </div>
 </template>
 
