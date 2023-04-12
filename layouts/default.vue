@@ -1,9 +1,9 @@
 <template>
-  <div ref="content" class="content">
-    <main>
+  <main ref="content" class="content">
+    <div class="content__wrap">
       <slot />
-    </main>
-  </div>
+    </div>
+  </main>
 </template>
 
 <script setup>
@@ -43,8 +43,12 @@ const animate = () => {
 };
 </script>
 
-<style>
+<style scoped>
 .content {
   opacity: 0;
+}
+
+.content__wrap {
+  width: 100dvw;
 }
 </style>

@@ -20,7 +20,8 @@ const slots = useSlots();
 <style lang="css">
 .pill {
   display: flex;
-  padding: var(--unit) calc(var(--unit) * 0.5);
+  padding: calc(var(--unit) * 0.5);
+  height: calc(var(--unit) * 5);
 }
 
 .pill__content {
@@ -29,7 +30,7 @@ const slots = useSlots();
   padding: calc(var(--unit) * 0.5);
   background-color: var(--color-background);
   color: var(--color-foreground);
-  border-radius: var(--unit);
+  border-radius: 100vw;
   line-height: 1;
 }
 
@@ -51,7 +52,7 @@ const slots = useSlots();
   border: 0;
   background: var(--color-document);
   color: var(--color-foreground);
-  border-radius: calc(var(--unit) * 0.25);
+  border-radius: 100vw;
   padding: calc(var(--unit) * 0.5) var(--unit);
   font-family: inherit;
   font-size: inherit;
@@ -62,6 +63,7 @@ const slots = useSlots();
 .pill__input select,
 .pill__input input[type="range"] {
   min-width: calc(var(--unit) * 24);
+  height: 100%;
 }
 
 .pill__input button {
@@ -85,7 +87,7 @@ const slots = useSlots();
 
 .pill__input input[type="range"]::-webkit-slider-runnable-track {
   background: var(--color-document);
-  border-radius: calc(var(--unit) * 0.25);
+  border-radius: 100vw;
 
   font-size: inherit;
 }
@@ -97,5 +99,63 @@ const slots = useSlots();
   height: calc(var(--unit) * 3);
   width: calc(var(--unit) * 3);
   border: 2px solid var(--color-background);
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: calc(var(--unit) * 6);
+  height: 100%;
+  border-radius: 100vw;
+  overflow: hidden;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--color-document);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 100vw;
+  overflow: hidden;
+  /* left: calc(var(--unit)); */
+  /* bottom: calc(var(--unit) * -0.5); */
+  border: 2px solid var(--color-document);
+
+  background-color: var(--color-foreground);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: var(--color-document);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  transform: translateX(calc(var(--unit) * 3));
 }
 </style>

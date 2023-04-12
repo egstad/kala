@@ -64,6 +64,19 @@
 
       <AtomsPill>
         <template #label>
+          <p>Zen</p>
+        </template>
+
+        <template #input>
+          <label class="switch">
+            <input type="checkbox" v-model="storeUI.zenMode" />
+            <span class="slider round"></span>
+          </label>
+        </template>
+      </AtomsPill>
+
+      <AtomsPill>
+        <template #label>
           <p>Zoom:</p>
         </template>
 
@@ -227,10 +240,6 @@ header {
 
 .nav ul {
   display: flex;
-}
-
-li {
-  padding: 0.5em;
 }
 
 li:first-child {

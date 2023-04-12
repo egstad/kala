@@ -12,7 +12,7 @@
 <script>
 export default {
   props: {
-    title: {
+    name: {
       type: String,
       require: true,
     },
@@ -34,6 +34,7 @@ export default {
 </script>
 
 <style scoped>
+.wrap,
 .canvas {
   height: 100%;
   width: 100%;

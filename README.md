@@ -18,7 +18,7 @@ Make sure to install the dependencies:
 nvm use
 
 # step 2: install depenencies (
-# i use npm. but use whatever package manager makes sense.
+# i use npm. but use whatever package manager you prefer, babe.
 npm install
 ```
 
@@ -45,6 +45,26 @@ npm run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+## How to add a new time unit
+
+1. Create a new `.vue` component (`./components/time-[UNIT_NAME].vue`). Important to note you must use the `time-` prefix here!
+2. Register the new `[UNIT_NAME]` within the `timeUnitsSupported` array found within `./store/time`. Doing this will add it into the site-wide navigation.
+3. Voila. That's it!
+
+### Standard units
+
+`Day.js`, the library that handles most all of the time logic throughout the app, has some pretty handy methods for comparing `now` against any unit you can dream up. For standard units like second, minute, hour, etc., you can use `endOf()`. Check out `./components/time-month.vue` for an example.
+
+### Nonstandard units
+
+For non-standard units - say for example, a `scaramucci` (10 days) – we take a more hands-on approach. First, we figure out how many milliseconds long that time unit is. In this case we use a handy lil function that converts days to milliseconds called `daysToMsec`. We then compare `now` against that time unit duration. Check out `./components/time-scaramucci.vue` for an in-depth example.
+
+## How to add a new visualization
+
+1. Create a new `.vue` component (`./components/visualizations/[NAME].vue`). Important to note you must include this within the `visualizations` directory!
+2. Register the new `[NAME]` within the `styleList` array found within `./store/ui`. Doing this will add it into the site-wide navigation.
+3. Voila. That's it!
 
 ## Todo
 

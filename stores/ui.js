@@ -4,8 +4,19 @@ export const useUIStore = defineStore("ui", {
     zoomDefault: 0,
     zoomOverride: false,
     styleSelected: null,
+    zenMode: false,
     styleDefault: "text-ring",
-    styleList: ["band", "line", "pie", "zoom", "text-ring", "rose", "cardoid"],
+    styleList: [
+      "band",
+      "line",
+      "pie",
+      "zoom",
+      "text-ring",
+      "text-counter",
+      "rose",
+      "cardoid",
+      "noise",
+    ],
     windowWidth: null,
     windowHeight: null,
     docWidth: null,
@@ -14,6 +25,9 @@ export const useUIStore = defineStore("ui", {
   actions: {
     updateZoomSelected(val) {
       this.zoomSelected = val;
+    },
+    updateZenMode(val) {
+      this.zenMode = val;
     },
     updateZoomDefault(val) {
       this.zoomDefault = val;

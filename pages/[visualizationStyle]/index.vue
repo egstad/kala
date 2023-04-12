@@ -1,11 +1,17 @@
 <template>
-  <div class="grid">
-    <component
+  <div class="grid" :class="{'zen-mode': zen}">
+    <template
       v-for="(unit, index) in storeTime.timeUnitsSupported"
       :key="unit + index"
-      :is="`time-${unit}`"
-      :variant="style"
-    />
+    >
+      <div class="grid__item">
+        <component :is="`time-${unit}`" :variant="style" />
+        <p class="meta">
+          <div class="meta__unit">{{ unit }}</div>
+          <AtomsSvgCurve class="meta__bevel" />
+        </p>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -19,10 +25,13 @@ import gsap from "gsap";
 const storeUI = useUIStore();
 const storeTime = useTimeStore();
 const zoom = storeToRefs(storeUI).zoomSelected;
+const zen = storeToRefs(storeUI).zenMode;
 const style = useRoute().params.visualizationStyle.toLowerCase();
 const time = useRoute()?.params?.time?.toLowerCase() || "All";
 storeUI.updateStyle(style);
 storeTime.updateTime(time);
+
+// const timeComponent = ref(null);
 
 definePageMeta({
   pageTransition: {
@@ -64,21 +73,55 @@ definePageMeta({
 .grid {
   display: grid;
   grid-template-columns: repeat(v-bind(zoom), 1fr);
-  grid-gap: 2px;
-  padding: 2px;
-  width: 100%;
+  grid-gap: calc(var(--unit) * 0.5);
+  padding: calc(var(--unit) * 0.5);
+  padding-top: 0;
+  width: 100dvw;
   height: 100%;
 }
 
-.grid :deep(.time) {
+.grid__item {
   aspect-ratio: 1/1;
   /* justify-self: center; */
   align-self: center;
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
+.grid :deep(.time),
 .grid :deep(.time__content) {
   height: 100%;
+  border-radius: var(--unit) var(--unit) var(--unit) 0;
+  overflow: hidden;
+  transition: border-radius 0  ease-out;
+
+}
+
+
+.meta {
+  width: fit-content;
+  display: flex;
+  transition: max-height 0.5s ease-out;
+  max-height: calc(var(--unit) *4);
+  overflow: hidden;;
+}
+
+.zen-mode.grid :deep(.time__content) {
+  border-radius: var(--unit);
+  transition: border-radius 0.25s 0.5s ease-out;
+
+}
+
+.zen-mode .meta {
+  max-height: 0;
+}
+
+.meta__unit {
+  background-color: var(--color-background);
+  border-radius: 0 0 var(--unit) var(--unit);
+  padding: var(--unit) calc(var(--unit) * 1.5);
+  text-transform: capitalize;
 }
 </style>

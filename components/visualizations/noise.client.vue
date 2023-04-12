@@ -9,8 +9,9 @@ import { ref, onMounted, watch, onUnmounted, toRaw, nextTick } from "vue";
 import { storeToRefs } from "pinia";
 import { loadP5 } from "@/assets/scripts/utilLoadFile";
 import { useLibraryStore } from "@/stores/libraries";
-import { getVariable } from "@/assets/scripts/utilGetVariable";
 import uid from "easy-uid";
+import { getVariable } from "@/assets/scripts/utilGetVariable";
+
 const raf = ref();
 const p5El = ref();
 const p5Id = uid();
@@ -19,7 +20,9 @@ const p5Instance = ref(null);
 const { p5HasLoaded } = storeToRefs(useLibraryStore());
 const observer = new IntersectionObserver(observerCallback);
 const progress = defineProps(["progress"]);
-const inView = ref(false);
+const simplex = new window.p5.SimplexNoise();
+let points;
+const numFrames = 150;
 
 loadP5();
 
@@ -27,95 +30,67 @@ loadP5();
  * P5.js stuff
  * ------------------------------------------------------------------------- */
 
-function countDigits(number) {
-  return number.toString().length;
-}
+const background = getVariable("--color-background");
+const foreground = getVariable("--color-foreground");
+let a = 50;
+let speed = 0.01;
 
 const sketch = function (p) {
-  const getNormalizedPosition = () => {
-    const parent = p5El.value.parentNode.parentNode.parentNode;
-    const me = Number(p5El.value.parentNode.parentNode.dataset.duration);
-    const els = parent.querySelectorAll(".time");
-    const dataset = [];
-
-    for (var i = 0; i < els.length; i++) {
-      var duration = els[i].getAttribute("data-duration");
-      dataset.push(Number(duration));
-    }
-
-    const min = Math.min(...dataset);
-    const max = Math.max(...dataset);
-
-    function evaluatePosition(min, max, value) {
-      if (value <= min) {
-        return 0.0;
-      } else if (value >= max) {
-        return 1.0;
-      } else {
-        return parseFloat((value - min) / (max - min)).toFixed(4);
-      }
-    }
-
-    return evaluatePosition(min, max, me);
-  };
-
-  const getDimensions = () => {
-    return p5El?.value?.getBoundingClientRect();
-  };
-
-  const myDuration = Number(p5El.value.parentNode.parentNode.dataset.duration);
-  const myDigits = countDigits(myDuration) - 1;
-  const duration = myDuration * 0.01;
-  const numOfLines = myDigits * (myDigits * 2);
-  // const numOfLines = Math.min(Math.max(parseInt(duration), 5), 250);
-  let width = getDimensions().width;
-  let height = getDimensions().height;
-  let r = width * 0.5;
-  let prog = progress.progress;
-  let factor = duration;
-  let background = getVariable("--color-background");
-  let foreground = getVariable("--color-foreground");
+  let t = 0;
+  let n = 15;
+  let d = 20;
 
   p.setup = () => {
-    p.createCanvas(width, height);
+    p.createCanvas(getDimensions().width, getDimensions().height);
     p.noLoop();
+
+    points = new p.Array(10000)
+      .fill(0)
+      .map((d) => ({
+        x: random(-width / 2, width / 2),
+        y: random(-height / 2, height / 2),
+      }))
+      .filter((d) => d.x * d.x + d.y * d.y < ((width / 2) * width) / 2);
   };
 
   p.draw = () => {
-    width = getDimensions().width;
-    height = getDimensions().height;
-    p.resizeCanvas(width, height);
-    r = width * 0.5;
-    prog = progress.progress * 360;
+    p.resizeCanvas(getDimensions().width, getDimensions().height);
     p.background(background);
 
-    // p.background(0);
-    factor += 0.00024;
-
     p.translate(p.width / 2, p.height / 2);
-    p.stroke(foreground);
-    p.strokeWeight(1);
-    p.noFill();
-    p.ellipse(0, 0, r * 2);
 
-    for (let i = 0; i < numOfLines; i++) {
-      const a = getVector(i, numOfLines, r);
-      const b = getVector(i * factor, numOfLines, r);
-      p.line(a.x, a.y, b.x, b.y);
-    }
-
-    p.noLoop();
+    p.push();
+    rose(n, d);
   };
 
   p.windowResized = () => {
     p.resizeCanvas(getDimensions().width, getDimensions().height);
   };
 
-  const getVector = (index, total, radius) => {
-    const angle = p.map(index % total, 0, total, 0, p.TWO_PI);
-    const v = window.p5.Vector.fromAngle(angle + p.PI);
-    v.mult(radius);
-    return v;
+  const getDimensions = () => {
+    return p5El.value.getBoundingClientRect();
+  };
+
+  function rose(n, d) {
+    p.noFill();
+    p.beginShape();
+    for (let angle = 0; angle < p.TWO_PI * d; angle += speed * 3) {
+      let k = n / d;
+
+      let x = a * p.cos(k * angle) * p.cos(angle);
+      let y = a * p.cos(k * angle) * p.sin(angle);
+
+      p.stroke(p.map(n * d, 1, 49, 0, 255), 255, 255);
+      p.vertex(x, y);
+    }
+    p.endShape();
+  }
+
+  const reduceDenominator = (numerator, denominator) => {
+    function rec(a, b) {
+      return b ? rec(b, a % b) : a;
+    }
+    return denominator / rec(numerator, denominator);
   };
 };
 
@@ -137,11 +112,9 @@ const p5Init = () => {
   nextTick(() => {
     const canvas = toRaw(p5Instance);
 
-    nextTick(() => {
-      p5Instance.value = new window.p5(sketch, p5Id);
-      p5Canvas.value.appendChild(canvas._rawValue.canvas);
-      observer.observe(p5Canvas.value);
-    });
+    p5Instance.value = new window.p5(sketch, p5Id);
+    p5Canvas.value.appendChild(canvas._rawValue.canvas);
+    observer.observe(p5Canvas.value);
 
     // nuxt.$listen("ui:zoom", () => {
     //   p5Instance.value.windowResized();
@@ -155,19 +128,11 @@ const p5Init = () => {
 
 function observerCallback(entries, observer) {
   if (entries[0].isIntersecting) {
-    inView.value = true;
     raf.value = requestAnimationFrame(rafCallback);
   } else {
-    inView.value = false;
     window.cancelAnimationFrame(raf.value);
   }
 }
-
-watch(progress, (newVal) => {
-  if (newVal && inView.value) {
-    rafCallback();
-  }
-});
 
 /* ----------------------------------------------------------------------------
  * Raf callback
@@ -176,7 +141,7 @@ watch(progress, (newVal) => {
 const rafCallback = () => {
   p5Instance.value.redraw();
 
-  // raf.value = requestAnimationFrame(rafCallback);
+  raf.value = requestAnimationFrame(rafCallback);
 };
 
 /* ----------------------------------------------------------------------------
@@ -196,8 +161,8 @@ onUnmounted(() => {
 
 <style scoped>
 .p5__content {
-  width: auto;
-  height: fit-content;
+  width: 100%;
+  height: 100%;
 }
 
 .p5__content :deep(canvas) {

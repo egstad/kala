@@ -9,20 +9,29 @@
     <VisualizationsPie
       v-else-if="props.variant == 'pie'"
       :progress="progress"
+      :name="name"
     />
 
     <VisualizationsBand
       v-else-if="props.variant == 'band'"
       :progress="progress"
+      :name="name"
     />
 
     <VisualizationsZoom
       v-else-if="props.variant == 'zoom'"
       :progress="progress"
+      :name="name"
     />
 
     <VisualizationsTextRing
       v-else-if="props.variant == 'text-ring'"
+      :progress="progress"
+      :name="name"
+    />
+
+    <VisualizationsTextCounter
+      v-else-if="props.variant == 'text-counter'"
       :progress="progress"
       :name="name"
     />
@@ -35,6 +44,12 @@
 
     <VisualizationsCardoid
       v-else-if="props.variant == 'cardoid'"
+      :progress="progress"
+      :name="name"
+    />
+
+    <VisualizationsNoise
+      v-else-if="props.variant == 'noise'"
       :progress="progress"
       :name="name"
     />

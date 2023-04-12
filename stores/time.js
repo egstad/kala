@@ -5,7 +5,7 @@ export const useTimeStore = defineStore("time", {
     timeUnitDefault: "All",
     timeSelectedUnit: null,
     timeUnitsSupported: [
-      "blink",
+      // "blink",
       "century",
       "day",
       "decade",

@@ -1,6 +1,8 @@
 <template>
-  <div class="zoom">
-    <div class="zoom__frame" :style="`transform: scale(${progress})`"></div>
+  <div class="canvas">
+    <div class="wrap">
+      <p class="progress">{{ (progress * 100).toFixed(2) }}</p>
+    </div>
   </div>
 </template>
 
@@ -31,24 +33,20 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.zoom {
+.canvas {
+  padding: var(--unit);
+
   background-color: var(--color-background);
-  transition: background-color var(--color-transition);
-  position: relative;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex: 1 1;
   width: 100%;
   height: 100%;
 }
 
-.zoom__frame {
-  background-color: var(--color-document);
-  transition: background-color var(--color-transition);
-  flex: 1 1;
-  display: flex;
+.wrap {
   width: 100%;
   height: 100%;
+}
+
+.progress {
+  font-size: 5dvw;
 }
 </style>
