@@ -1,7 +1,12 @@
 <template>
-  <div class="canvas" :id="p5Id" ref="p5El" style="height: 100%; width: 100%">
+  <figure
+    :id="p5Id"
+    ref="p5El"
+    style="height: 100%; width: 100%"
+    :class="{ 'zen-mode': zen }"
+  >
     <div class="p5__content" ref="p5Canvas"></div>
-  </div>
+  </figure>
 </template>
 
 <script setup>
@@ -20,6 +25,9 @@ const { p5HasLoaded } = storeToRefs(useLibraryStore());
 const observer = new IntersectionObserver(observerCallback);
 const progress = defineProps(["progress"]);
 const inView = ref(false);
+const storeUI = useUIStore();
+const zen = storeToRefs(storeUI).zenMode;
+const nuxtApp = useNuxtApp();
 
 loadP5();
 
@@ -87,7 +95,7 @@ const sketch = function (p) {
     p.resizeCanvas(width, height);
     r = width * 0.5;
     prog = progress.progress * 360;
-    p.background(background);
+    // p.background(background);
 
     // p.background(0);
     factor += 0.00024;
@@ -143,9 +151,9 @@ const p5Init = () => {
       observer.observe(p5Canvas.value);
     });
 
-    // nuxt.$listen("ui:zoom", () => {
-    //   p5Instance.value.windowResized();
-    // });
+    nuxtApp.$listen("ui:zoom", () => {
+      p5Instance.value.windowResized();
+    });
   });
 };
 
@@ -195,13 +203,36 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.p5__content {
+/* figure {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background-color: var(--color-background);
+  transition: background-color var(--color-transition);
+} */
+
+figure {
   width: auto;
   height: fit-content;
+  background-color: var(--color-background);
+  transition: background-color var(--color-transition);
+}
+
+figure.zen-mode {
+  background-color: var(--color-document);
+  transition: background-color var(--color-transition);
+  transition-delay: 0.5s;
 }
 
 .p5__content :deep(canvas) {
   width: 100% !important;
   height: 100% !important;
 }
+
+/* .orbit {
+  display: flex;
+  width: 100%;
+  object-fit: contain;
+} */
 </style>

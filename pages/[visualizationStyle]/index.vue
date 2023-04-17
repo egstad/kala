@@ -95,7 +95,7 @@ definePageMeta({
   height: 100%;
   border-radius: var(--unit) var(--unit) var(--unit) 0;
   overflow: hidden;
-  transition: border-radius 0  ease-out;
+  transition: border-radius 0 ease-out;
 
 }
 
@@ -103,7 +103,7 @@ definePageMeta({
 .meta {
   width: fit-content;
   display: flex;
-  transition: max-height 0.5s ease-out;
+  transition: max-height var(--color-transition);
   max-height: calc(var(--unit) *4);
   overflow: hidden;;
 }

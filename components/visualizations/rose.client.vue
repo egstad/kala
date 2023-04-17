@@ -1,7 +1,12 @@
 <template>
-  <div class="canvas" :id="p5Id" ref="p5El" style="height: 100%; width: 100%">
+  <figure
+    :class="{ 'zen-mode': zen }"
+    :id="p5Id"
+    ref="p5El"
+    style="height: 100%; width: 100%"
+  >
     <div class="p5__content" ref="p5Canvas"></div>
-  </div>
+  </figure>
 </template>
 
 <script setup>
@@ -20,6 +25,9 @@ const p5Instance = ref(null);
 const { p5HasLoaded } = storeToRefs(useLibraryStore());
 const observer = new IntersectionObserver(observerCallback);
 const progress = defineProps(["progress"]);
+
+const storeUI = useUIStore();
+const zen = storeToRefs(storeUI).zenMode;
 
 loadP5();
 
@@ -44,7 +52,7 @@ const sketch = function (p) {
 
   p.draw = () => {
     p.resizeCanvas(getDimensions().width, getDimensions().height);
-    p.background(background);
+    // p.background(background);
 
     p.translate(p.width / 2, p.height / 2);
 
@@ -149,11 +157,17 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.p5__content {
-  width: 100%;
-  height: 100%;
+figure {
   width: auto;
   height: fit-content;
+  background-color: var(--color-background);
+  transition: background-color var(--color-transition);
+}
+
+figure.zen-mode {
+  background-color: var(--color-document);
+  transition: background-color var(--color-transition);
+  transition-delay: 0.5s;
 }
 
 .p5__content :deep(canvas) {
