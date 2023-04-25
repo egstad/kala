@@ -1,50 +1,67 @@
 <template>
-  <div>
-    <div class="gridzie" ref="timeUnits">
-      <component
-        v-for="(unit, index) in storeTime.timeUnitsSupported"
-        :key="unit + index"
-        :is="`time-${unit}`"
-        :variant="storeUI.styleDefault"
-      />
-    </div>
+  <div class="grid" :class="{'zen-mode': zen}">
+    <template
+      v-for="(unit, index) in storeTime.timeUnitsSupported"
+      :key="unit + index"
+    >
+      <div class="grid__item">
+        <component :is="`time-${unit}`" :variant="style" />
+        <p class="meta">
+          <div class="meta__unit">{{ unit }}</div>
+          <AtomsSvgCurve class="meta__bevel" />
+        </p>
+      </div>
+    </template>
   </div>
 </template>
 
 <script setup>
-import gsap from "gsap";
 import { storeToRefs } from "pinia";
+import gsap from "gsap";
 
-const storeTime = useTimeStore();
+/* ----------------------------------------------------------------------------
+ * Set our selected style based on route param
+ * ------------------------------------------------------------------------- */
 const storeUI = useUIStore();
-storeUI.updateStyle(storeUI.styleDefault);
-storeTime.updateTime(storeTime.timeUnitDefault);
-
+const storeTime = useTimeStore();
 const zoom = storeToRefs(storeUI).zoomSelected;
+const zen = storeToRefs(storeUI).zenMode;
+const style = storeToRefs(storeUI).styleDefault;
+const time = "All";
+storeUI.updateStyle(style);
+storeTime.updateTime(time);
+
+// const timeComponent = ref(null);
 
 definePageMeta({
   pageTransition: {
     mode: "out-in",
     onBeforeEnter: (el) => {
-      gsap.set(el, {
+      gsap.set(el.children, {
         opacity: 0,
-        y: "10px",
+        y: "20px",
       });
     },
     onEnter: (el, done) => {
-      gsap.to(el, {
+      gsap.to(el.children, {
         opacity: 1,
         y: "0",
-        duration: 1,
-        delay: 0.5,
         ease: "power3.out",
-        onComplete: done,
+        onComplete: function () {
+          gsap.set(this.targets(), { clearProps: "all" });
+          done();
+        },
+        delay: 0.5,
+        duration: 2,
+        stagger: {
+          amount: 0.75,
+        },
       });
     },
     onLeave(el, done) {
       gsap.to(el, {
         opacity: 0,
-        y: "10px",
+        y: "20px",
         onComplete: done,
       });
     },
@@ -53,10 +70,60 @@ definePageMeta({
 </script>
 
 <style scoped>
-.gridzie {
+.grid {
   display: grid;
   grid-template-columns: repeat(v-bind(zoom), 1fr);
-  /* grid-gap: 2px; */
-  /* padding: 2px; */
+  grid-gap: calc(var(--unit) * 0.5);
+  padding: calc(var(--unit) * 0.5);
+  padding-top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.grid__item {
+  justify-self: center;
+  align-self: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.grid :deep(.time),
+.grid :deep(.time__content) {
+  height: 100%;
+  width: 100%;
+  flex: 1 1;
+  border-radius: var(--unit) var(--unit) var(--unit) 0;
+  overflow: hidden;
+  transition: border-radius 0 ease-out;
+}
+
+.grid :deep(.time__content) {
+aspect-ratio: 1/1;
+}
+
+.meta {
+  width: fit-content;
+  display: flex;
+  transition: max-height var(--color-transition);
+  max-height: calc(var(--unit) *4);
+  overflow: hidden;;
+}
+
+.zen-mode.grid :deep(.time__content) {
+  border-radius: var(--unit);
+  transition: border-radius 0.25s 0.5s ease-out;
+}
+
+.zen-mode .meta {
+  max-height: 0;
+}
+
+.meta__unit {
+  background-color: var(--color-background);
+  border-radius: 0 0 var(--unit) var(--unit);
+  padding: var(--unit) calc(var(--unit) * 1.5);
+  text-transform: capitalize;
 }
 </style>
