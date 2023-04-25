@@ -26,8 +26,8 @@ const storeUI = useUIStore();
 const storeTime = useTimeStore();
 const zoom = storeToRefs(storeUI).zoomSelected;
 const zen = storeToRefs(storeUI).zenMode;
-const style = useRoute().params.visualizationStyle.toLowerCase();
-const time = useRoute()?.params?.time?.toLowerCase() || "All";
+const style = storeToRefs(storeUI).styleDefault;
+const time = "All";
 storeUI.updateStyle(style);
 storeTime.updateTime(time);
 
@@ -76,13 +76,12 @@ definePageMeta({
   grid-gap: calc(var(--unit) * 0.5);
   padding: calc(var(--unit) * 0.5);
   padding-top: 0;
-  width: 100dvw;
+  width: 100%;
   height: 100%;
 }
 
 .grid__item {
-  aspect-ratio: 1/1;
-  /* justify-self: center; */
+  justify-self: center;
   align-self: center;
   width: 100%;
   height: 100%;
@@ -93,12 +92,16 @@ definePageMeta({
 .grid :deep(.time),
 .grid :deep(.time__content) {
   height: 100%;
+  width: 100%;
+  flex: 1 1;
   border-radius: var(--unit) var(--unit) var(--unit) 0;
   overflow: hidden;
   transition: border-radius 0 ease-out;
-
 }
 
+.grid :deep(.time__content) {
+  aspect-ratio: 1/1;
+}
 
 .meta {
   width: fit-content;
@@ -111,7 +114,6 @@ definePageMeta({
 .zen-mode.grid :deep(.time__content) {
   border-radius: var(--unit);
   transition: border-radius 0.25s 0.5s ease-out;
-
 }
 
 .zen-mode .meta {

@@ -100,7 +100,7 @@ definePageMeta({
 }
 
 .grid :deep(.time__content) {
-aspect-ratio: 1/1;
+  aspect-ratio: 1/1;
 }
 
 .meta {
