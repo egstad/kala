@@ -68,13 +68,17 @@ For non-standard units - say for example, a `scaramucci` (10 days) – we take a
 2. Register the new `[NAME]` within the `styleList` array found within `./store/ui`. Doing this will add it into the site-wide navigation.
 3. Voila. That's it!
 
----
-
 ## What's with the name?
 
-[Glad you asked.](https://en.wikipedia.org/wiki/K%C4%81la)
+Glad you asked. [Kāla](https://en.wikipedia.org/wiki/K%C4%81la) is a Sanskrit word that has fluid meanings and often refers to _"time"_, _"destiny"_, or _"fate"_. Other translations define Kala as _"an impersonal messenger of death"_. Gloomy, I know. But hell we're mortals after all; time and death go hand in hand.
 
----
+According to Monier-Williams, kāla's verbal root (kal) means "to calculate".
+
+The name kala was ultimately chosen because this project is a time calulator, aka: a watch.
+
+Now, look, I'd be lying if I said I knew all of this beforehand. Like most things, I stumbled across this meaningfully rich word serendipitously while researching various time units I could register within the app (one kālá corresponds to 144 seconds).
+
+Anyhow. That's the story.
 
 ## Todo
 
@@ -84,8 +88,7 @@ For non-standard units - say for example, a `scaramucci` (10 days) – we take a
 - Add LOTR Trilogy: 11.4hrs
 - Pregnancy: 280days
 - Methuselah: 969years
-
----
+- kālá: to 144 seconds
 
 # Inputs
 
