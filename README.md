@@ -70,7 +70,7 @@ For non-standard units - say for example, a `scaramucci` (10 days) – we take a
 
 ## What's with the name?
 
-Glad you asked. [Kāla](https://en.wikipedia.org/wiki/K%C4%81la) is a Sanskrit word that has fluid meanings and often refers to _"time"_, _"destiny"_, or _"fate"_. Other translations define Kala as _"an impersonal messenger of death"_. Gloomy, I know. But hell we're mortals after all; time and death go hand in hand.
+Glad you asked. [Kāla](https://en.wikipedia.org/wiki/K%C4%81la) is a Sanskrit word that has fluid meanings and often refers to _"time"_, _"destiny"_, or _"fate"_. Other translations define Kala as _"an impersonal messenger of death"_. Gloomy as hell, I know... but we're mortals after all; time and death go hand in hand.
 
 According to Monier-Williams, kāla's verbal root (kal) means "to calculate".
 
