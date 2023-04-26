@@ -37,13 +37,13 @@ loadP5();
 
 const background = getVariable("--color-background");
 const foreground = getVariable("--color-foreground");
-let a = 50;
+let a = 100;
 let speed = 0.01;
 
 const sketch = function (p) {
   let t = 0;
-  let n = 15;
-  let d = 20;
+  let n = progress.progress * 100;
+  let d = progress.progress;
 
   p.setup = () => {
     p.createCanvas(getDimensions().width, getDimensions().height);
@@ -52,9 +52,17 @@ const sketch = function (p) {
 
   p.draw = () => {
     p.resizeCanvas(getDimensions().width, getDimensions().height);
+    a = getDimensions().width * 0.5;
     // p.background(background);
 
+    // n = progress.progress * 7;
+    // d = progress.progress * 10;
+    n = progress.progress * 100;
+    d = progress.progress;
+
     p.translate(p.width / 2, p.height / 2);
+    // rotation += 0.1
+    // p.rotate(rotation);
 
     p.push();
     rose(n, d);
@@ -77,18 +85,11 @@ const sketch = function (p) {
       let x = a * p.cos(k * angle) * p.cos(angle);
       let y = a * p.cos(k * angle) * p.sin(angle);
 
-      p.stroke(p.map(n * d, 1, 49, 0, 255), 255, 255);
+      p.stroke(foreground);
       p.vertex(x, y);
     }
     p.endShape();
   }
-
-  const reduceDenominator = (numerator, denominator) => {
-    function rec(a, b) {
-      return b ? rec(b, a % b) : a;
-    }
-    return denominator / rec(numerator, denominator);
-  };
 };
 
 const p5Init = () => {

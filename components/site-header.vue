@@ -226,6 +226,7 @@ const formatTitle = (slug) => {
 header {
   display: inline-flex;
   flex-wrap: wrap;
+  padding-top: calc(var(--unit) * 0.5);
   /* position: fixed;
   top: 0;
   left: 0;

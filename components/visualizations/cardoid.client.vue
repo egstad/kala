@@ -40,33 +40,6 @@ function countDigits(number) {
 }
 
 const sketch = function (p) {
-  const getNormalizedPosition = () => {
-    const parent = p5El.value.parentNode.parentNode.parentNode;
-    const me = Number(p5El.value.parentNode.parentNode.dataset.duration);
-    const els = parent.querySelectorAll(".time");
-    const dataset = [];
-
-    for (var i = 0; i < els.length; i++) {
-      var duration = els[i].getAttribute("data-duration");
-      dataset.push(Number(duration));
-    }
-
-    const min = Math.min(...dataset);
-    const max = Math.max(...dataset);
-
-    function evaluatePosition(min, max, value) {
-      if (value <= min) {
-        return 0.0;
-      } else if (value >= max) {
-        return 1.0;
-      } else {
-        return parseFloat((value - min) / (max - min)).toFixed(4);
-      }
-    }
-
-    return evaluatePosition(min, max, me);
-  };
-
   const getDimensions = () => {
     return p5El?.value?.getBoundingClientRect();
   };
@@ -80,7 +53,7 @@ const sketch = function (p) {
   let height = getDimensions().height;
   let r = width * 0.5;
   let prog = progress.progress;
-  let factor = duration;
+  let factor = p.TWO_PI * prog;
   let background = getVariable("--color-background");
   let foreground = getVariable("--color-foreground");
 
@@ -94,11 +67,13 @@ const sketch = function (p) {
     height = getDimensions().height;
     p.resizeCanvas(width, height);
     r = width * 0.5;
-    prog = progress.progress * 360;
+    prog = progress.progress;
+    // factor = p.TWO_PI * prog;
     // p.background(background);
 
     // p.background(0);
-    factor += 0.00024;
+    factor = prog;
+    // factor = prog + 0.0001;
 
     p.translate(p.width / 2, p.height / 2);
     p.stroke(foreground);
@@ -108,7 +83,7 @@ const sketch = function (p) {
 
     for (let i = 0; i < numOfLines; i++) {
       const a = getVector(i, numOfLines, r);
-      const b = getVector(i * factor, numOfLines, r);
+      const b = getVector(prog * 360 * (i * 0.1), numOfLines, r);
       p.line(a.x, a.y, b.x, b.y);
     }
 

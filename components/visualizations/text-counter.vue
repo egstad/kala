@@ -1,10 +1,8 @@
 <template>
   <div class="canvas">
     <div class="wrap">
-      <p class="progress">{{ (progress * 100).toFixed(1) }}&percnt;</p>
-      <!-- <p class="progress">
-        {{ String((progress * 100).toFixed(2)).padStart(2, "0") }}
-      </p> -->
+      <!-- <p class="progress">{{ (progress * 100).toFixed(1) }}&percnt;</p> -->
+      <p class="progress">{{ convertToLeadingZero(progress) }}%</p>
     </div>
   </div>
 </template>
@@ -36,6 +34,14 @@ export default {
     leadingZero(num, totalLength) {
       return String(num).padStart(totalLength, "0");
     },
+    convertToLeadingZero(floatingNumber) {
+      const num = floatingNumber * 100;
+
+      return num.toLocaleString("en-US", {
+        minimumIntegerDigits: 2,
+        minimumFractionDigits: 2,
+      });
+    },
   },
 };
 </script>
@@ -64,9 +70,12 @@ figure.zen-mode {
 .wrap {
   width: 100%;
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .progress {
-  font-size: 5dvw;
+  font-size: 3vw;
 }
 </style>

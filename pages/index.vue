@@ -1,5 +1,5 @@
 <template>
-  <div class="grid" :class="{'zen-mode': zen}">
+  <div class="grid" :class="{'zen-mode': zen}" ref="el">
     <template
       v-for="(unit, index) in storeTime.timeUnitsSupported"
       :key="unit + index"
@@ -18,6 +18,7 @@
 <script setup>
 import { storeToRefs } from "pinia";
 import gsap from "gsap";
+import { ref } from 'vue';
 
 /* ----------------------------------------------------------------------------
  * Set our selected style based on route param
@@ -28,7 +29,9 @@ const zoom = storeToRefs(storeUI).zoomSelected;
 const zen = storeToRefs(storeUI).zenMode;
 const style = storeToRefs(storeUI).styleDefault;
 const time = "All";
+const el = ref(null);
 storeUI.updateStyle(style);
+storeTime.updateTime(time);
 storeTime.updateTime(time);
 
 // const timeComponent = ref(null);

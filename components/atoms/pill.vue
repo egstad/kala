@@ -20,7 +20,8 @@ const slots = useSlots();
 <style lang="css">
 .pill {
   display: flex;
-  padding: calc(var(--unit) * 0.5);
+  padding-bottom: calc(var(--unit) * 0.5);
+  padding-left: calc(var(--unit) * 0.5);
   height: calc(var(--unit) * 5);
 }
 
@@ -53,7 +54,7 @@ const slots = useSlots();
   background: var(--color-document);
   color: var(--color-foreground);
   border-radius: 100vw;
-  padding: calc(var(--unit) * 0.5) var(--unit);
+  padding: calc(var(--unit) * 0.5) calc(var(--unit) * 1.5);
   font-family: inherit;
   font-size: inherit;
   font-weight: inherit;
@@ -67,7 +68,8 @@ const slots = useSlots();
 }
 
 .pill__input button {
-  background: var(--color-midground);
+  height: 100%;
+  background-color: var(--color-document);
   cursor: pointer;
 }
 
@@ -87,6 +89,7 @@ const slots = useSlots();
 
 .pill__input input[type="range"]::-webkit-slider-runnable-track {
   background: var(--color-document);
+  height: calc(var(--unit) * 4 - var(--unit) * 0.5);
   border-radius: 100vw;
 
   font-size: inherit;
@@ -96,17 +99,18 @@ const slots = useSlots();
   appearance: none;
   background-color: var(--color-foreground);
   border-radius: calc(var(--unit) * 5);
-  height: calc(var(--unit) * 3);
-  width: calc(var(--unit) * 3);
-  border: 2px solid var(--color-background);
+  height: calc(var(--unit) * 4 - var(--unit) * 0.5);
+  width: calc(var(--unit) * 4 - var(--unit) * 0.5);
+  border: 2px solid var(--color-document);
 }
 
 /* The switch - the box around the slider */
 .switch {
   position: relative;
   display: inline-block;
-  width: calc(var(--unit) * 6);
-  height: 100%;
+  width: calc(var(--unit) * 6.5);
+  height: calc(var(--unit) * 4 - var(--unit) * 0.5);
+  /* height: 100%; */
   border-radius: 100vw;
   overflow: hidden;
 }
@@ -138,8 +142,6 @@ const slots = useSlots();
   aspect-ratio: 1/1;
   border-radius: 100vw;
   overflow: hidden;
-  /* left: calc(var(--unit)); */
-  /* bottom: calc(var(--unit) * -0.5); */
   border: 2px solid var(--color-document);
 
   background-color: var(--color-foreground);
@@ -149,10 +151,6 @@ const slots = useSlots();
 
 input:checked + .slider {
   background-color: var(--color-document);
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
 }
 
 input:checked + .slider:before {

@@ -56,8 +56,10 @@ export default {
   padding: var(--unit);
 
   background-color: var(--color-background);
-  width: auto;
-  height: fit-content;
+  /* width: auto;
+  height: fit-content; */
+  width: 100%;
+  height: 100%;
 }
 
 .wrap {

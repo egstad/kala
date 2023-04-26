@@ -5,7 +5,7 @@ export const useTimeStore = defineStore("time", {
     timeUnitDefault: "All",
     timeSelectedUnit: null,
     timeUnitsSupported: [
-      // "blink",
+      "blink",
       "century",
       "day",
       "decade",
@@ -16,6 +16,7 @@ export const useTimeStore = defineStore("time", {
       "hectosecond",
       "helek",
       "hour",
+      "human-life-expectancy",
       "ke",
       "kilosecond",
       "lustre",
