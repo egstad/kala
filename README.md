@@ -15,11 +15,11 @@
 Make sure to install the dependencies:
 
 ```bash
-# step 1: use proper node version
+# step 1: use proper node version (v18.5.0 at the time of this writing)
 # if you use nvm, like me, run this:
 nvm use
 
-# step 2: install depenencies (
+# step 2: install depenencies
 # i use npm. but use whatever package manager you prefer, babe.
 npm install
 ```
