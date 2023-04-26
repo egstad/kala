@@ -2,7 +2,7 @@
 
 > An interactive online tool that visualizes the passing of time.
 
-## Built with:
+## Technologies
 
 - I use [Nuxt 3](https://nuxt.com/) as the frontend framework.
 - [Pinia](https://pinia.vuejs.org/ssr/nuxt.html) is used to manage global state.
