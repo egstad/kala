@@ -1,12 +1,14 @@
-# Time
+# [kala.watch](https://kala.watch) [![Netlify Status](https://api.netlify.com/api/v1/badges/a4ccd1aa-76a1-4174-a164-900f78d519b9/deploy-status)](https://app.netlify.com/sites/horilogy/deploys)
 
-> [My](https://egstad.com) personal [horilogical](https://en.wikipedia.org/wiki/Horology) experiment.
-> [![Netlify Status](https://api.netlify.com/api/v1/badges/a4ccd1aa-76a1-4174-a164-900f78d519b9/deploy-status)](https://app.netlify.com/sites/horilogy/deploys)
+> An interactive online tool that visualizes the passing of time.
 
 ## Built with:
 
-- [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction)
-- [Day.js documentation](https://day.js.org/docs/en/installation/installation)
+- I use [Nuxt 3](https://nuxt.com/) as the frontend framework.
+- [Pinia](https://pinia.vuejs.org/ssr/nuxt.html) is used to manage global state.
+- To keep track of time and handle all the weird localization shit, I use [Day.js](https://day.js.org/). It rules.
+- Some visualizations leverage [P5.js](https://p5js.org/).
+- [GSAP](https://greensock.com/gsap/) is used for all sorts of UI animations.
 
 ## Setup
 
@@ -66,6 +68,14 @@ For non-standard units - say for example, a `scaramucci` (10 days) – we take a
 2. Register the new `[NAME]` within the `styleList` array found within `./store/ui`. Doing this will add it into the site-wide navigation.
 3. Voila. That's it!
 
+---
+
+## What's with the name?
+
+[Glad you asked.](https://en.wikipedia.org/wiki/K%C4%81la)
+
+---
+
 ## Todo
 
 - Add "punct" : 15mins
@@ -73,9 +83,9 @@ For non-standard units - say for example, a `scaramucci` (10 days) – we take a
 - Add MILEWAY: 20mins
 - Add LOTR Trilogy: 11.4hrs
 - Pregnancy: 280days
-
-- Life expectancy: 73.16years
 - Methuselah: 969years
+
+---
 
 # Inputs
 
