@@ -53,6 +53,12 @@
       :progress="progress"
       :name="name"
     />
+
+    <VisualizationsVideo
+      v-else-if="props.variant == 'video'"
+      :progress="progress"
+      :name="name"
+    />
   </div>
 </template>
 
