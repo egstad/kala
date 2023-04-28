@@ -168,7 +168,7 @@ watch(p5HasLoaded, () => p5Init());
 onMounted(() => p5Init());
 
 onUnmounted(() => {
-  // p5Instance.value.remove();
+  p5Instance.value.remove();
   observer.disconnect();
   window.cancelAnimationFrame(raf.value);
 });
