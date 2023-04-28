@@ -68,9 +68,8 @@ const sketch = function (p) {
     height = getDimensions().height;
     p.resizeCanvas(width, height);
     r = width * 0.5;
-    prog = progress.progress;
-    // factor = calcNumOfLines() + p.frameCount * 0.001;
-    factor = now.value.valueOf() * 0.0001;
+    factor = calcNumOfLines() + p.frameCount * 0.001;
+    // factor = now.value.valueOf() * 0.0001;
 
     p.translate(p.width / 2, p.height / 2);
     p.stroke(foreground);
