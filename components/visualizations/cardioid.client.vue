@@ -28,6 +28,7 @@ const inView = ref(false);
 const storeUI = useUIStore();
 const zen = storeToRefs(storeUI).zenMode;
 const nuxtApp = useNuxtApp();
+const { now } = storeToRefs(useTimeStore());
 
 loadP5();
 
@@ -35,8 +36,12 @@ loadP5();
  * P5.js stuff
  * ------------------------------------------------------------------------- */
 
-function countDigits(number) {
-  return number.toString().length;
+function calcNumOfLines() {
+  const duration = Number(p5El.value.parentNode.parentNode.dataset.duration);
+  const durationStringLength = String(duration).length;
+  const firstString = Number(String(duration).charAt(0));
+
+  return durationStringLength * firstString;
 }
 
 const sketch = function (p) {
@@ -44,11 +49,7 @@ const sketch = function (p) {
     return p5El?.value?.getBoundingClientRect();
   };
 
-  const myDuration = Number(p5El.value.parentNode.parentNode.dataset.duration);
-  const myDigits = countDigits(myDuration) - 1;
-  const duration = myDuration * 0.01;
-  const numOfLines = myDigits * (myDigits * 2);
-  // const numOfLines = Math.min(Math.max(parseInt(duration), 5), 250);
+  const numOfLines = calcNumOfLines() * 8;
   let width = getDimensions().width;
   let height = getDimensions().height;
   let r = width * 0.5;
@@ -68,12 +69,8 @@ const sketch = function (p) {
     p.resizeCanvas(width, height);
     r = width * 0.5;
     prog = progress.progress;
-    // factor = p.TWO_PI * prog;
-    // p.background(background);
-
-    // p.background(0);
-    factor = prog;
-    // factor = prog + 0.0001;
+    // factor = calcNumOfLines() + p.frameCount * 0.001;
+    factor = now.value.valueOf() * 0.0001;
 
     p.translate(p.width / 2, p.height / 2);
     p.stroke(foreground);
@@ -83,7 +80,7 @@ const sketch = function (p) {
 
     for (let i = 0; i < numOfLines; i++) {
       const a = getVector(i, numOfLines, r);
-      const b = getVector(prog * 360 * (i * 0.1), numOfLines, r);
+      const b = getVector(i * factor, numOfLines, r);
       p.line(a.x, a.y, b.x, b.y);
     }
 
