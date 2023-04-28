@@ -7,7 +7,7 @@
       <div class="grid__item">
         <component :is="`time-${unit}`" :variant="style" />
         <p class="meta">
-          <div class="meta__unit">{{ unit }}</div>
+          <div class="meta__unit">{{ unit.replace(/-/g, ' ') }}</div>
           <AtomsSvgCurve class="meta__bevel" />
         </p>
       </div>

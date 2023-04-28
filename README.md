@@ -85,10 +85,7 @@ Anyhow. That's the story.
 - Add "punct" : 15mins
 - Add QUADRANT: 6 hours
 - Add MILEWAY: 20mins
-- Add LOTR Trilogy: 11.4hrs
 - Pregnancy: 280days
-- Methuselah: 969years
-- kālá: to 144 seconds
 
 # Inputs
 

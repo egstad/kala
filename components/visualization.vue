@@ -42,8 +42,8 @@
       :name="name"
     />
 
-    <VisualizationsCardoid
-      v-else-if="props.variant == 'cardoid'"
+    <VisualizationsCardioid
+      v-else-if="props.variant == 'cardioid'"
       :progress="progress"
       :name="name"
     />
