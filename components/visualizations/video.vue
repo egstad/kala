@@ -1,7 +1,7 @@
 <template>
   <div class="canvas">
     <video
-      src="https://ia801201.us.archive.org/4/items/theexiles/theexilesreel1.mp4?cnt=0"
+      src="https://ia801201.us.archive.org/4/items/theexiles/theexilesreel1.mp4"
       ref="video"
       muted
       preload
