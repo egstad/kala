@@ -18,7 +18,7 @@
 <script setup>
 import { storeToRefs } from "pinia";
 import gsap from "gsap";
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 
 /* ----------------------------------------------------------------------------
  * Set our selected style based on route param
@@ -33,6 +33,18 @@ const el = ref(null);
 storeUI.updateStyle(style);
 storeTime.updateTime(time);
 storeTime.updateTime(time);
+
+
+
+onMounted(() => {
+  if (process.client) {
+    if (navigator.userActivation.hasBeenActive) {
+      storeUI.updateSound(true)
+    }
+  }
+})
+
+
 
 // const timeComponent = ref(null);
 
@@ -70,6 +82,8 @@ definePageMeta({
     },
   },
 });
+
+
 </script>
 
 <style scoped>

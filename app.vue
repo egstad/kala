@@ -19,10 +19,15 @@ dayjs.extend(dayjsIsLeapYear);
 dayjs.extend(dayjsUTC);
 
 const nuxtApp = useNuxtApp();
+const storeUI = useUIStore();
 
 onMounted(() => {
   if (!process.client) return;
   nuxtApp.$deviceResize.init();
+
+  if (navigator.userActivation.hasBeenActive) {
+    storeUI.updateSound(true);
+  }
 });
 
 /* ----------------------------------------------------------------------------
@@ -31,7 +36,6 @@ onMounted(() => {
 
 const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 const timeStore = useTimeStore();
-const storeUI = useUIStore();
 let raf = ref(null);
 
 const timeNowUpdate = () => {

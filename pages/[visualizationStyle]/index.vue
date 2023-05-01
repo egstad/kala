@@ -29,6 +29,8 @@ import gsap from "gsap";
 import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue';
 
 
+
+
 /* ----------------------------------------------------------------------------
  * Set our selected style based on route param
  * ------------------------------------------------------------------------- */
@@ -84,21 +86,28 @@ definePageMeta({
 });
 
 onMounted(() => {
+  if (process.client) {
+    if (navigator.userActivation.hasBeenActive) {
+      storeUI.updateSound(true)
+    }
+  }
+
   if (style === 'chet') {
     storeUI.showSoundUI(true);
   }
 
   nuxt.$listen("sound::update", (ev)=> {
-    nextTick(() => {
-      if (storeUI.soundEnabled) {
-        audio.value.play()
-      } else {
-        audio.value.pause()
-      }
-    })
-
+    nextTick(() => playAudio())
   });
 })
+
+function playAudio() {
+  if (storeUI.soundEnabled) {
+    audio.value.play()
+  } else {
+    audio.value.pause()
+  }
+}
 
 
 
