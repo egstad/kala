@@ -59,6 +59,12 @@
       :progress="progress"
       :name="name"
     />
+
+    <VisualizationsChet
+      v-else-if="props.variant == 'chet'"
+      :progress="progress"
+      :name="name"
+    />
   </div>
 </template>
 

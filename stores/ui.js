@@ -5,6 +5,8 @@ export const useUIStore = defineStore("ui", {
     zoomOverride: false,
     styleSelected: null,
     zenMode: false,
+    soundEnabled: false,
+    soundIsVisible: false,
     styleDefault: "text-ring",
     styleList: [
       "band",
@@ -17,6 +19,7 @@ export const useUIStore = defineStore("ui", {
       "cardioid",
       "noise",
       "video",
+      "chet",
     ],
     windowWidth: null,
     windowHeight: null,
@@ -29,6 +32,12 @@ export const useUIStore = defineStore("ui", {
     },
     updateZenMode(val) {
       this.zenMode = val;
+    },
+    updateSound(val) {
+      this.soundEnabled = val;
+    },
+    showSoundUI(val) {
+      this.soundIsVisible = val;
     },
     updateZoomDefault(val) {
       this.zoomDefault = val;

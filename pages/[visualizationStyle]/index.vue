@@ -1,4 +1,11 @@
 <template>
+<div>
+  <template v-if="storeUI.soundIsVisible">
+    <audio :autoplay="storeUI.soundEnabled" ref="audio">
+      <source src="@/assets/audio/time-after-time.mp3" type="audio/mpeg">
+    </audio>
+  </template>
+
   <div class="grid" :class="{'zen-mode': zen}" ref="el">
     <template
       v-for="(unit, index) in storeTime.timeUnitsSupported"
@@ -12,13 +19,15 @@
         </p>
       </div>
     </template>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { storeToRefs } from "pinia";
 import gsap from "gsap";
-import { ref } from 'vue';
+import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue';
+
 
 /* ----------------------------------------------------------------------------
  * Set our selected style based on route param
@@ -30,12 +39,14 @@ const zen = storeToRefs(storeUI).zenMode;
 const style = useRoute().params.visualizationStyle.toLowerCase();
 const time = "All";
 const el = ref(null);
+const nuxt = useNuxtApp();
+const audio = ref(null);
 storeUI.updateStyle(style);
 storeTime.updateTime(time);
 storeTime.updateTime(time);
 
 
-// const timeComponent = ref(null);
+
 
 definePageMeta({
   pageTransition: {
@@ -71,6 +82,34 @@ definePageMeta({
     },
   },
 });
+
+onMounted(() => {
+  if (style === 'chet') {
+    storeUI.showSoundUI(true);
+  }
+
+  nuxt.$listen("sound::update", (ev)=> {
+    nextTick(() => {
+      if (storeUI.soundEnabled) {
+        audio.value.play()
+      } else {
+        audio.value.pause()
+      }
+    })
+
+  });
+})
+
+
+
+
+onBeforeUnmount(() => {
+  if (style === 'chet') {
+    storeUI.showSoundUI(false);
+
+  }
+})
+
 </script>
 
 <style scoped>

@@ -15,7 +15,7 @@
       <AtomsPill @click="clock12Hour = !clock12Hour">
         <template #label>
           <p>
-            <span class="screen-reader-only">Current Time:</span>
+            <span class="screen-reader-only">Current Time</span>
             <span v-if="clock12Hour">{{
               storeTime.now.format("hh:mm:ss")
             }}</span>
@@ -26,7 +26,7 @@
 
       <AtomsPill>
         <template #label>
-          <p>Style:</p>
+          <p>Style</p>
         </template>
         <template #input>
           <nav class="nav">
@@ -41,7 +41,7 @@
 
       <AtomsPill>
         <template #label>
-          <p>Time:</p>
+          <p>Time</p>
         </template>
         <template #input>
           <nav class="nav">
@@ -75,9 +75,26 @@
         </template>
       </AtomsPill>
 
+      <AtomsPill v-if="storeUI.soundIsVisible">
+        <template #label>
+          <p>Sound</p>
+        </template>
+
+        <template #input>
+          <label class="switch">
+            <input
+              type="checkbox"
+              v-model="storeUI.soundEnabled"
+              @change="onSoundChange"
+            />
+            <span class="slider round"></span>
+          </label>
+        </template>
+      </AtomsPill>
+
       <AtomsPill>
         <template #label>
-          <p>Zoom:</p>
+          <p>Zoom</p>
         </template>
 
         <template #input>
@@ -169,6 +186,10 @@ const onZoomChange = (event) => {
 
   // tell the whole app something changed...
   $event("ui:zoom");
+};
+
+const onSoundChange = (event) => {
+  $event("sound::update", event);
 };
 
 const resetColumnCount = (event) => {
