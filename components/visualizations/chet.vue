@@ -52,7 +52,7 @@ export default {
   object-fit: cover;
   opacity: 0.05;
   z-index: 1;
-  transform: scale(1.2);
+  transform: scale(1);
   pointer-events: none;
 }
 
