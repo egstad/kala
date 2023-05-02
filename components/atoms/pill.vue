@@ -138,8 +138,8 @@ const slots = useSlots();
 .slider:before {
   position: absolute;
   content: "";
-  height: 100%;
-  aspect-ratio: 1/1;
+  height: calc(var(--unit) * 4 - var(--unit) * 0.5);
+  width: calc(var(--unit) * 4 - var(--unit) * 0.5);
   border-radius: 100vw;
   overflow: hidden;
   border: 2px solid var(--color-document);
