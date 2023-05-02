@@ -86,14 +86,14 @@ definePageMeta({
 });
 
 onMounted(() => {
+  if (style === 'chet') {
+    storeUI.showSoundUI(true);
+  }
+
   if (process.client) {
     if (navigator.userActivation.hasBeenActive) {
       storeUI.updateSound(true)
     }
-  }
-
-  if (style === 'chet') {
-    storeUI.showSoundUI(true);
   }
 
   nuxt.$listen("sound::update", (ev)=> {
