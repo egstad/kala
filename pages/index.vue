@@ -85,7 +85,7 @@ definePageMeta({
 });
 
 
-const pageTitle = `Kala - ${formatPageTitle(
+const pageTitle = `Kala - Viewing ${formatPageTitle(
   time
 )} as ${formatPageTitle(style.value)} `;
 
