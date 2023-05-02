@@ -88,6 +88,7 @@ definePageMeta({
 onMounted(() => {
   if (style === 'chet') {
     storeUI.showSoundUI(true);
+    nextTick(() => playAudio())
   }
 
   if (process.client) {
