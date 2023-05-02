@@ -25,6 +25,7 @@ export const useUIStore = defineStore("ui", {
     windowHeight: null,
     docWidth: null,
     docHeight: null,
+    userHasInteractedWithDom: false,
   }),
   actions: {
     updateZoomSelected(val) {
@@ -53,6 +54,10 @@ export const useUIStore = defineStore("ui", {
       this.windowHeight = val.windowHeight;
       this.docWidth = val.docWidth;
       this.docHeight = val.docHeight;
+    },
+    userHasInteracted(val) {
+      this.userHasInteractedWithDom = val;
+      console.log("user interacted", val);
     },
   },
 });

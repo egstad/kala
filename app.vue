@@ -24,10 +24,7 @@ const storeUI = useUIStore();
 onMounted(() => {
   if (!process.client) return;
   nuxtApp.$deviceResize.init();
-
-  if (navigator.userActivation.hasBeenActive) {
-    storeUI.updateSound(true);
-  }
+  checkForInteraction();
 });
 
 /* ----------------------------------------------------------------------------
@@ -47,4 +44,20 @@ const timeNowUpdate = () => {
 const timeNowDestroy = () => cancelAnimationFrame(raf.value);
 
 timeNowUpdate();
+
+function checkForInteraction() {
+  const interactions = ["click", "mouseover", "touch", "focus"];
+
+  interactions.forEach((eventName) => {
+    window.addEventListener(
+      eventName,
+      () => {
+        storeUI.userHasInteracted(true);
+      },
+      {
+        once: true,
+      }
+    );
+  });
+}
 </script>

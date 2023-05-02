@@ -91,7 +91,7 @@ onMounted(() => {
   }
 
   if (process.client) {
-    if (navigator.userActivation.hasBeenActive) {
+    if (navigator.userActivation.hasBeenActive || storeUI.userHasInteractedWithDom) {
       storeUI.updateSound(true)
     }
   }
