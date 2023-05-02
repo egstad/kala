@@ -18,7 +18,6 @@ export const useUIStore = defineStore("ui", {
       "rose",
       "cardioid",
       "noise",
-      "video",
       "chet",
     ],
     windowWidth: null,
@@ -57,7 +56,6 @@ export const useUIStore = defineStore("ui", {
     },
     userHasInteracted(val) {
       this.userHasInteractedWithDom = val;
-      console.log("user interacted", val);
     },
   },
 });

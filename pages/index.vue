@@ -1,5 +1,5 @@
 <template>
-  <div class="grid" :class="{'zen-mode': zen}" ref="el">
+  <div class="grid" :class="{ 'zen-mode': zen }" ref="el">
     <template
       v-for="(unit, index) in storeTime.timeUnitsSupported"
       :key="unit + index"
@@ -7,7 +7,7 @@
       <div class="grid__item">
         <component :is="`time-${unit}`" :variant="style" />
         <p class="meta">
-          <div class="meta__unit">{{ unit.replace(/-/g, ' ') }}</div>
+          <span class="meta__unit">{{ unit.replace(/-/g, " ") }}</span>
           <AtomsSvgCurve class="meta__bevel" />
         </p>
       </div>
@@ -18,9 +18,9 @@
 <script setup>
 import { storeToRefs } from "pinia";
 import gsap from "gsap";
-import { ref, onMounted } from 'vue';
-import { setMetaTags } from '@/assets/scripts/utilMetaTags'
-import { formatPageTitle } from '@/assets/scripts/utilFormatText';
+import { ref, onMounted } from "vue";
+import { setMetaTags } from "@/assets/scripts/utilMetaTags";
+import { formatPageTitle } from "@/assets/scripts/utilFormatText";
 
 /* ----------------------------------------------------------------------------
  * Set our selected style based on route param
@@ -35,17 +35,16 @@ const el = ref(null);
 storeUI.updateStyle(style);
 storeTime.updateTime(time);
 
-
-
 onMounted(() => {
   if (process.client) {
-    if (navigator.userActivation.hasBeenActive || storeUI.userHasInteractedWithDom) {
-      storeUI.updateSound(true)
+    if (
+      navigator.userActivation.hasBeenActive ||
+      storeUI.userHasInteractedWithDom
+    ) {
+      storeUI.updateSound(true);
     }
   }
-})
-
-
+});
 
 // const timeComponent = ref(null);
 
@@ -84,10 +83,7 @@ definePageMeta({
   },
 });
 
-
-const pageTitle = `Kala - Viewing ${formatPageTitle(
-  time
-)} as ${formatPageTitle(style.value)} `;
+const pageTitle = `Kala - An interactive online tool that visualizes the passing of time`;
 
 useHead({
   title: pageTitle,
@@ -97,7 +93,6 @@ useServerSeoMeta(
     title: pageTitle,
   })
 );
-
 </script>
 
 <style scoped>
@@ -138,8 +133,8 @@ useServerSeoMeta(
   width: fit-content;
   display: flex;
   transition: max-height var(--color-transition);
-  max-height: calc(var(--unit) *4);
-  overflow: hidden;;
+  max-height: calc(var(--unit) * 4);
+  overflow: hidden;
 }
 
 .zen-mode.grid :deep(.time__content) {

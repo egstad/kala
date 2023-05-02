@@ -1,24 +1,24 @@
 <template>
-<div>
-  <template v-if="storeUI.soundIsVisible">
-    <audio :autoplay="storeUI.soundEnabled" ref="audio">
-      <source src="@/assets/audio/time-after-time.mp3" type="audio/mpeg">
-    </audio>
-  </template>
-
-  <div class="grid" :class="{'zen-mode': zen}" ref="el">
-    <template
-      v-for="(unit, index) in storeTime.timeUnitsSupported"
-      :key="unit + index"
-    >
-      <div class="grid__item">
-        <component :is="`time-${unit}`" :variant="style" />
-        <p class="meta">
-          <div class="meta__unit">{{ unit.replace(/-/g, ' ') }}</div>
-          <AtomsSvgCurve class="meta__bevel" />
-        </p>
-      </div>
+  <div>
+    <template v-if="storeUI.soundIsVisible">
+      <audio :autoplay="storeUI.soundEnabled" ref="audio">
+        <source src="@/assets/audio/time-after-time.mp3" type="audio/mpeg" />
+      </audio>
     </template>
+
+    <div class="grid" :class="{ 'zen-mode': zen }" ref="el">
+      <template
+        v-for="(unit, index) in storeTime.timeUnitsSupported"
+        :key="unit + index"
+      >
+        <div class="grid__item">
+          <component :is="`time-${unit}`" :variant="style" />
+          <p class="meta">
+            <span class="meta__unit">{{ unit.replace(/-/g, " ") }}</span>
+            <AtomsSvgCurve class="meta__bevel" />
+          </p>
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -26,12 +26,9 @@
 <script setup>
 import { storeToRefs } from "pinia";
 import gsap from "gsap";
-import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue';
-import { setMetaTags } from '@/assets/scripts/utilMetaTags'
-import { formatPageTitle } from '@/assets/scripts/utilFormatText';
-
-
-
+import { ref, onMounted, onBeforeUnmount, nextTick } from "vue";
+import { setMetaTags } from "@/assets/scripts/utilMetaTags";
+import { formatPageTitle } from "@/assets/scripts/utilFormatText";
 
 /* ----------------------------------------------------------------------------
  * Set our selected style based on route param
@@ -48,21 +45,18 @@ const audio = ref(null);
 storeUI.updateStyle(style);
 storeTime.updateTime(time);
 
-
 const pageTitle = `Kala - Viewing ${formatPageTitle(time)} as ${formatPageTitle(
   style
 )} `;
 
 useHead({
-  title: pageTitle
-})
-useServerSeoMeta(setMetaTags( {
-  title: pageTitle
-}))
-
-
-
-
+  title: pageTitle,
+});
+useServerSeoMeta(
+  setMetaTags({
+    title: pageTitle,
+  })
+);
 
 definePageMeta({
   pageTransition: {
@@ -100,42 +94,39 @@ definePageMeta({
 });
 
 onMounted(() => {
-  if (style === 'chet') {
+  if (style === "chet") {
     storeUI.showSoundUI(true);
 
     nextTick(() => {
-      audio.value.addEventListener('canplaythrough', audioHandler, false);
+      audio.value.addEventListener("canplaythrough", audioHandler, false);
       nuxt.$listen("sound::update", audioHandler);
     });
   }
 
   if (process.client) {
-    if (navigator.userActivation.hasBeenActive || storeUI.userHasInteractedWithDom) {
-      storeUI.updateSound(true)
+    if (
+      navigator.userActivation.hasBeenActive ||
+      storeUI.userHasInteractedWithDom
+    ) {
+      storeUI.updateSound(true);
     }
   }
-})
-
-
+});
 
 function audioHandler() {
   if (storeUI.soundEnabled) {
-    audio.value.play()
+    audio.value.play();
   } else {
-    audio.value.pause()
+    audio.value.pause();
   }
 }
 
-
 onBeforeUnmount(() => {
-  if (style === 'chet') {
+  if (style === "chet") {
     storeUI.showSoundUI(false);
-    audio.value.removeEventListener('canplaythrough', audioHandler, false);
+    audio.value.removeEventListener("canplaythrough", audioHandler, false);
   }
-})
-
-
-
+});
 </script>
 
 <style scoped>
@@ -176,8 +167,8 @@ onBeforeUnmount(() => {
   width: fit-content;
   display: flex;
   transition: max-height var(--color-transition);
-  max-height: calc(var(--unit) *4);
-  overflow: hidden;;
+  max-height: calc(var(--unit) * 4);
+  overflow: hidden;
 }
 
 .zen-mode.grid :deep(.time__content) {
