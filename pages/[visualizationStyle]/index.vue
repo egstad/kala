@@ -1,7 +1,7 @@
 <template>
 <div>
   <template v-if="storeUI.soundIsVisible">
-    <audio :autoplay="storeUI.soundEnabled" ref="audio">
+    <audio :autoplay="storeUI.soundEnabled" ref="audio" controls>
       <source src="@/assets/audio/time-after-time.mp3" type="audio/mpeg">
     </audio>
   </template>
@@ -88,21 +88,23 @@ definePageMeta({
 onMounted(() => {
   if (style === 'chet') {
     storeUI.showSoundUI(true);
+
+    nextTick(() => {
+      audio.value.addEventListener('canplaythrough', audioHandler, false);
+      nuxt.$listen("sound::update", audioHandler);
+    });
   }
 
   if (process.client) {
     if (navigator.userActivation.hasBeenActive || storeUI.userHasInteractedWithDom) {
       storeUI.updateSound(true)
-      nextTick(() => playAudio())
     }
   }
-
-  nuxt.$listen("sound::update", (ev)=> {
-    nextTick(() => playAudio())
-  });
 })
 
-function playAudio() {
+
+
+function audioHandler() {
   if (storeUI.soundEnabled) {
     audio.value.play()
   } else {
@@ -111,12 +113,10 @@ function playAudio() {
 }
 
 
-
-
 onBeforeUnmount(() => {
   if (style === 'chet') {
     storeUI.showSoundUI(false);
-
+    audio.value.removeEventListener('canplaythrough', audioHandler, false);
   }
 })
 
