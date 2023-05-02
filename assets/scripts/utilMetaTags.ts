@@ -2,7 +2,7 @@ const defaults = {
   title: "Kala",
   description:
     "An interactive online tool that visualizes the passing of time.",
-  image: "https://kala.watch/kala-thumbnail.png",
+  image: "https://kala.watch/images/kala-thumbnail.png",
   twitterCard: "summary_large_image",
   twitterCreator: "@jordanegstad",
 };
