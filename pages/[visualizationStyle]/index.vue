@@ -1,7 +1,7 @@
 <template>
 <div>
   <template v-if="storeUI.soundIsVisible">
-    <audio :autoplay="storeUI.soundEnabled" ref="audio" controls>
+    <audio :autoplay="storeUI.soundEnabled" ref="audio">
       <source src="@/assets/audio/time-after-time.mp3" type="audio/mpeg">
     </audio>
   </template>
