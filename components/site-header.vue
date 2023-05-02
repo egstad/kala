@@ -104,7 +104,7 @@
             @input="onZoomChange"
             name="zoom"
             min="1"
-            max="6"
+            :max="maxZoom"
             style="direction: rtl"
           />
 
@@ -122,6 +122,7 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
+import { storeToRefs } from "pinia";
 
 const storeTime = useTimeStore();
 const clock12Hour = ref(true);
@@ -202,11 +203,13 @@ const resetColumnCount = (event) => {
  * ------------------------------------------------------------------------- */
 
 const userEditedColumnCount = ref(false);
+const { windowWidth } = storeToRefs(storeUI);
+const maxZoom = ref(getZoomMaxColumns());
 
 const updateColumnCount = (ev) => {
   if (storeUI.zoomOverride) return;
 
-  const width = window.innerWidth;
+  const width = storeUI.windowWidth;
   let colCount;
 
   if (width < 640) {
@@ -227,8 +230,36 @@ const updateColumnCount = (ev) => {
   storeUI.updateZoomSelected(colCount);
 };
 
-if (process.client) {
-  window.addEventListener("resize", updateColumnCount);
+// watch the window width...
+// if the width changes, update the max zoom val so that the grid
+// doesn't spill outside of the viewport
+
+watch(windowWidth, () => {
+  if (process.client) {
+    updateColumnCount();
+    maxZoom.value = getZoomMaxColumns();
+  }
+});
+
+function getZoomMaxColumns() {
+  const width = storeUI.windowWidth;
+  let colCount;
+
+  if (width < 640) {
+    colCount = 3;
+  } else if (width < 960) {
+    colCount = 3;
+  } else if (width < 1440) {
+    colCount = 4;
+  } else if (width < 1920) {
+    colCount = 4;
+  } else if (width < 2560) {
+    colCount = 5;
+  } else {
+    colCount = 6;
+  }
+
+  return colCount;
 }
 
 const formatTitle = (slug) => {

@@ -6,7 +6,7 @@ const deviceResize = {
   init() {
     this.resizeHandler = this.throttleResize.bind(this);
     this.timeout = false;
-    this.delay = 200;
+    this.delay = 50;
 
     this.setSize();
     window.addEventListener("resize", this.resizeHandler);
