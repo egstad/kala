@@ -14,6 +14,7 @@ export function setMetaTags(options = defaults) {
     description: options.description || defaults.description,
     ogDescription: options.description || defaults.description,
     ogImage: options.image || defaults.image,
+    twitterTitle: options.title || defaults.title,
     twitterCard: options.twitterCard || defaults.twitterCard,
     twitterCreator: options.twitterCreator || defaults.twitterCreator,
     twitterDescription: options.description || defaults.description,

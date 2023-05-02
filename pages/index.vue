@@ -20,6 +20,7 @@ import { storeToRefs } from "pinia";
 import gsap from "gsap";
 import { ref, onMounted } from 'vue';
 import { setMetaTags } from '@/assets/scripts/utilMetaTags'
+import { formatPageTitle } from '@/assets/scripts/utilFormatText';
 
 /* ----------------------------------------------------------------------------
  * Set our selected style based on route param
@@ -32,7 +33,6 @@ const style = storeToRefs(storeUI).styleDefault;
 const time = "All";
 const el = ref(null);
 storeUI.updateStyle(style);
-storeTime.updateTime(time);
 storeTime.updateTime(time);
 
 
@@ -85,7 +85,18 @@ definePageMeta({
 });
 
 
-useServerSeoMeta(setMetaTags())
+const pageTitle = `Kala - ${formatPageTitle(
+  time
+)} as ${formatPageTitle(style.value)} `;
+
+useHead({
+  title: pageTitle,
+});
+useServerSeoMeta(
+  setMetaTags({
+    title: pageTitle,
+  })
+);
 
 </script>
 

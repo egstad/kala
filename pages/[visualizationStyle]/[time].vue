@@ -7,13 +7,14 @@
 <script setup>
 import { storeToRefs } from "pinia";
 import gsap from "gsap";
+import { setMetaTags } from "@/assets/scripts/utilMetaTags";
+import { formatPageTitle } from "@/assets/scripts/utilFormatText";
 
 /* ----------------------------------------------------------------------------
  * Set our selected style based on route param
  * ------------------------------------------------------------------------- */
 const storeUI = useUIStore();
 const storeTime = useTimeStore();
-const zoom = storeToRefs(storeUI).zoomSelected;
 const style = useRoute().params.visualizationStyle.toLowerCase();
 const time = useRoute().params.time.toLowerCase();
 storeUI.updateStyle(style);
@@ -53,6 +54,19 @@ definePageMeta({
     },
   },
 });
+
+const pageTitle = `Kala - ${formatPageTitle(time)} as ${formatPageTitle(
+  style
+)} `;
+
+useHead({
+  title: pageTitle,
+});
+useServerSeoMeta(
+  setMetaTags({
+    title: pageTitle,
+  })
+);
 </script>
 
 <style scoped>

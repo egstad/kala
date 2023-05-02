@@ -27,6 +27,8 @@
 import { storeToRefs } from "pinia";
 import gsap from "gsap";
 import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue';
+import { setMetaTags } from '@/assets/scripts/utilMetaTags'
+import { formatPageTitle } from '@/assets/scripts/utilFormatText';
 
 
 
@@ -45,7 +47,19 @@ const nuxt = useNuxtApp();
 const audio = ref(null);
 storeUI.updateStyle(style);
 storeTime.updateTime(time);
-storeTime.updateTime(time);
+
+
+const pageTitle = `Kala - ${formatPageTitle(time)} as ${formatPageTitle(
+  style
+)} `;
+
+useHead({
+  title: pageTitle
+})
+useServerSeoMeta(setMetaTags( {
+  title: pageTitle
+}))
+
 
 
 
@@ -119,6 +133,8 @@ onBeforeUnmount(() => {
     audio.value.removeEventListener('canplaythrough', audioHandler, false);
   }
 })
+
+
 
 </script>
 
