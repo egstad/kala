@@ -88,12 +88,12 @@ definePageMeta({
 onMounted(() => {
   if (style === 'chet') {
     storeUI.showSoundUI(true);
-    nextTick(() => playAudio())
   }
 
   if (process.client) {
     if (navigator.userActivation.hasBeenActive || storeUI.userHasInteractedWithDom) {
       storeUI.updateSound(true)
+      nextTick(() => playAudio())
     }
   }
 
