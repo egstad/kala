@@ -19,6 +19,7 @@
 import { storeToRefs } from "pinia";
 import gsap from "gsap";
 import { ref, onMounted } from 'vue';
+import { setMetaTags } from '@/assets/scripts/utilMetaTags'
 
 /* ----------------------------------------------------------------------------
  * Set our selected style based on route param
@@ -83,6 +84,8 @@ definePageMeta({
   },
 });
 
+
+useServerSeoMeta(setMetaTags())
 
 </script>
 
