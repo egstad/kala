@@ -33,6 +33,7 @@ export default {
       plane: null,
       dial: null,
       dialSize: 100,
+      spheres: [],
     };
   },
   mounted() {
@@ -60,14 +61,6 @@ export default {
       this.camera.rotation.x = 0;
       this.camera.rotation.y = 0;
       this.camera.rotation.x = 0;
-
-      if (this.w < this.h) {
-        let fov =
-          2 * Math.atan((this.w * 0.8) / (4 * this.cameraZ)) * (180 / Math.PI);
-        this.camera.fov = fov - 100;
-      } else {
-        this.camera.fov = this.cameraFOV;
-      }
     },
     initRenderer() {
       this.renderer = new THREE.WebGLRenderer({
@@ -123,16 +116,7 @@ export default {
       this.camera.aspect = this.w / this.h;
       this.camera.updateProjectionMatrix();
       this.renderer.setSize(this.w, this.h);
-
-      // around 500
-
-      if (this.w < this.h) {
-        let fov =
-          2 * Math.atan((this.w * 0.8) / (4 * this.cameraZ)) * (180 / Math.PI);
-        this.camera.fov = fov - 100;
-      } else {
-        this.camera.fov = this.cameraFOV;
-      }
+      this.resizeNumbers();
     },
     drawDial() {
       const geometry = new THREE.SphereGeometry(this.dialSize * 0.24, 32, 64);
@@ -165,7 +149,7 @@ export default {
       // Define the center and radius of the circle
       const cx = 0;
       const cy = 0;
-      const r = this.dialSize + this.lightSize;
+      const r = 50 * (this.w / this.h) + this.lightSize;
 
       // Create a sphere geometry and material
       // const sphereGeometry = new THREE.CylinderGeometry( 1, 1, 20, 32 )
@@ -188,9 +172,27 @@ export default {
         sphere.castShadow = true;
         sphere.position.set(x, y, 0);
 
+        this.spheres.push(sphere);
         // Add the sphere to the scene
         this.scene.add(sphere);
       }
+    },
+    resizeNumbers() {
+      const cx = 0;
+      const cy = 0;
+      const r = Math.min(100 * (this.w / this.h) + this.lightSize, 100);
+
+      this.spheres.forEach((sphere, i) => {
+        // Calculate the angle in radians for this sphere
+        const angle = (i / 12) * 2 * Math.PI;
+
+        // Calculate the coordinates for this sphere
+        const x = cx + r * Math.cos(angle);
+        const y = cy + r * Math.sin(angle);
+
+        // Create the sphere and position it at the calculated coordinates
+        sphere.position.set(x, y, 0);
+      });
     },
   },
 };
@@ -200,6 +202,9 @@ export default {
 .content,
 .three {
   width: 100dvw;
-  height: 100dvh;
+}
+
+canvas {
+  aspect-ratio: 1 / 1;
 }
 </style>
