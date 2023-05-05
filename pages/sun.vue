@@ -13,7 +13,28 @@ import * as THREE from "three";
 import { ref, onMounted, onBeforeUnmount, nextTick } from "vue";
 import { setMetaTags } from "@/assets/scripts/utilMetaTags";
 import { formatPageTitle } from "@/assets/scripts/utilFormatText";
+import { percentageReverse } from "@/assets/scripts/mathPercentage";
+
+import { minutesToMsec } from "~~/assets/scripts/mathMinutesToSeconds";
+import { useTimeStore } from "@/stores/time";
+import { useUIStore } from "@/stores/ui";
+
+/* ----------------------------------------------------------------------------
+ * Set duration of this time unit in MSEC
+ * ------------------------------------------------------------------------- */
+
+const durationMsec = minutesToMsec(1);
+
 export default {
+  setup() {
+    const timeStore = useTimeStore();
+    const storeUI = useUIStore();
+
+    return {
+      timeStore,
+      storeUI,
+    };
+  },
   data() {
     return {
       renderer: null,
@@ -35,6 +56,24 @@ export default {
       dialSize: 100,
       spheres: [],
     };
+  },
+  created() {
+    this.storeUI.updateHeader(true);
+    this.storeUI.showZoom(false);
+    this.storeUI.showZen(false);
+    this.storeUI.showStyle(false);
+    this.storeUI.showTime(false);
+
+    const el = document.documentElement;
+    el.setAttribute(
+      "style",
+      "--color-background: rgba(0, 0, 0, 0.75); --color-foreground: rgba(100, 100, 200, 1)"
+    );
+
+    //   --color-document: #000000;
+    // --color-background: #222;
+    // --color-midground: #373737;
+    // --color-foreground: #9e9e9e;
   },
   mounted() {
     this.init();
@@ -84,17 +123,18 @@ export default {
       this.drawNumbers();
     },
     animate() {
-      this.time = Date.now() * 0.0005;
+      // this.time = this.updateTime();
+      this.time = this.updateTime() * (Math.PI * 2);
       this.raf = requestAnimationFrame(this.animate);
       this.rotateLight();
       this.renderer.render(toRaw(this.scene), this.camera);
     },
     rotateLight() {
       gsap.to(this.light.position, {
-        duration: 3,
+        duration: 0.1,
         ease: "power4.out",
-        x: Math.sin(this.time * 2) * (this.dialSize * 3),
-        y: Math.cos(this.time * 2) * (this.dialSize * 3),
+        x: Math.sin(this.time) * (this.dialSize * 3),
+        y: Math.cos(this.time) * (this.dialSize * 3),
         // x: this.mouse.x,
         // y: this.mouse.y,
         z: this.dialSize * 0.3,
@@ -199,6 +239,11 @@ export default {
         sphere.position.set(x, y, 0);
       });
     },
+    updateTime() {
+      const now = this.timeStore.now;
+      const msecDifference = now.endOf("minute").diff(now);
+      return percentageReverse(msecDifference, durationMsec);
+    },
   },
 };
 </script>
@@ -207,9 +252,6 @@ export default {
 .content,
 .three {
   width: 100dvw;
-}
-
-canvas {
-  aspect-ratio: 1 / 1;
+  height: 100dvh;
 }
 </style>

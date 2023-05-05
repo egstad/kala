@@ -7,6 +7,8 @@ export const useUIStore = defineStore("ui", {
     zenMode: false,
     soundEnabled: false,
     soundIsVisible: false,
+    zenIsVisible: true,
+    zoomIsVisible: true,
     styleDefault: "text-ring",
     styleList: [
       "band",
@@ -26,13 +28,31 @@ export const useUIStore = defineStore("ui", {
     docWidth: null,
     docHeight: null,
     userHasInteractedWithDom: false,
+    styleIsVisible: false,
+    timeIsVisible: false,
+    headerIsFixed: false,
   }),
   actions: {
+    updateHeader(val) {
+      this.headerIsFixed = val;
+    },
+    showStyle(val) {
+      this.styleIsVisible = val;
+    },
+    showTime(val) {
+      this.timeIsVisible = val;
+    },
     updateZoomSelected(val) {
       this.zoomSelected = val;
     },
+    showZoom(val) {
+      this.zoomIsVisible = val;
+    },
     updateZenMode(val) {
       this.zenMode = val;
+    },
+    showZen(val) {
+      this.zenIsVisible = val;
     },
     updateSound(val) {
       this.soundEnabled = val;
