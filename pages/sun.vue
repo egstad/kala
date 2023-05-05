@@ -64,16 +64,13 @@ export default {
     this.storeUI.showStyle(false);
     this.storeUI.showTime(false);
 
-    const el = document.documentElement;
-    el.setAttribute(
-      "style",
-      "--color-background: rgba(0, 0, 0, 0.75); --color-foreground: rgba(100, 100, 200, 1)"
-    );
-
-    //   --color-document: #000000;
-    // --color-background: #222;
-    // --color-midground: #373737;
-    // --color-foreground: #9e9e9e;
+    if (process.client) {
+      const el = document.documentElement;
+      el.setAttribute(
+        "style",
+        "--color-background: rgba(0, 0, 0, 0.); --color-foreground: rgba(100, 100, 200, 1)"
+      );
+    }
   },
   mounted() {
     this.init();
@@ -137,7 +134,7 @@ export default {
         y: Math.cos(this.time) * (this.dialSize * 3),
         // x: this.mouse.x,
         // y: this.mouse.y,
-        z: this.dialSize * 0.3,
+        z: this.dialSize * 0.6,
       });
     },
     setDimensions() {
@@ -186,6 +183,8 @@ export default {
         new THREE.Mesh(sphere, new THREE.MeshBasicMaterial({ color: 0x0000ff }))
       );
       this.light.castShadow = true;
+      this.light.shadow.radius = 3;
+      this.light.shadow.blurSamples = 25;
       this.scene.add(this.light);
     },
     drawNumbers() {
@@ -213,8 +212,8 @@ export default {
         // Create the sphere and position it at the calculated coordinates
         const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
         sphere.castShadow = true;
+        // sphere.receiveShadow = true;
         sphere.position.set(x, y, 0);
-
         this.spheres.push(sphere);
         // Add the sphere to the scene
         this.scene.add(sphere);
