@@ -1,6 +1,6 @@
 <template>
   <ClientOnly>
-    <header>
+    <header :class="{ fixed: storeUI.headerIsFixed }">
       <h1 class="visually-hidden">Time, a project by Jordan Egstad.</h1>
 
       <AtomsPill>
@@ -24,7 +24,7 @@
         </template>
       </AtomsPill>
 
-      <AtomsPill>
+      <AtomsPill v-if="storeUI.styleIsVisible">
         <template #label>
           <p>Style</p>
         </template>
@@ -39,7 +39,7 @@
         </template>
       </AtomsPill>
 
-      <AtomsPill>
+      <AtomsPill v-if="storeUI.timeIsVisible">
         <template #label>
           <p>Time</p>
         </template>
@@ -62,7 +62,7 @@
         </template>
       </AtomsPill>
 
-      <AtomsPill>
+      <AtomsPill v-if="storeUI.zenIsVisible">
         <template #label>
           <p>Zen</p>
         </template>
@@ -92,7 +92,7 @@
         </template>
       </AtomsPill>
 
-      <AtomsPill>
+      <AtomsPill v-if="storeUI.zoomIsVisible">
         <template #label>
           <p>Zoom</p>
         </template>
@@ -289,6 +289,13 @@ header {
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap; */
+}
+
+header.fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
 }
 
 .nav ul {
