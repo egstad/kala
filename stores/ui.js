@@ -19,6 +19,7 @@ export const useUIStore = defineStore("ui", {
       "cardioid",
       "noise",
       "chet",
+      "sun",
     ],
     windowWidth: null,
     windowHeight: null,

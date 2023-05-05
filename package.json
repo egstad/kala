@@ -27,6 +27,7 @@
     "progressbar.js": "^1.1.0",
     "scrolly-video": "^0.0.15",
     "shufflejs": "^6.1.0",
+    "three": "^0.152.2",
     "uuid": "^9.0.0",
     "vue-composable": "^1.0.0-beta.24",
     "vueisotope": "^3.1.2"

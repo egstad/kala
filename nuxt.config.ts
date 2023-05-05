@@ -38,7 +38,7 @@ export default defineNuxtConfig({
   build: {
     transpile: [
       // "mixitup",
-      // "three",
+      "three",
       // "three/examples/jsm/controls/OrbitControls",
       // "three/examples/jsm/lights/LightProbeGenerator",
     ],

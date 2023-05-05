@@ -65,6 +65,12 @@
       :progress="progress"
       :name="name"
     />
+
+    <VisualizationsSun
+      v-else-if="props.variant == 'sun'"
+      :progress="progress"
+      :name="name"
+    />
   </div>
 </template>
 
