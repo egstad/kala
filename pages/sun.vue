@@ -25,9 +25,9 @@ export default {
       w: null,
       h: null,
       light: null,
-      lightSize: 5,
+      lightSize: 0,
       lightOffset: 0,
-      lightIntensity: 500,
+      lightIntensity: 600,
       time: 0,
       mouse: null,
       plane: null,
@@ -40,9 +40,12 @@ export default {
     this.init();
     this.animate();
   },
+  beforeUnmount() {
+    cancelAnimationFrame(this.raf);
+    window.removeEventListener("resize", this.onWindowResize, false);
+  },
   methods: {
     init() {
-      console.clear();
       this.setDimensions();
       this.initScene();
       this.initCamera();
@@ -90,11 +93,11 @@ export default {
       gsap.to(this.light.position, {
         duration: 3,
         ease: "power4.out",
-        x: Math.sin(this.time * 2) * (this.dialSize * 2),
-        y: Math.cos(this.time * 2) * (this.dialSize * 2),
+        x: Math.sin(this.time * 2) * (this.dialSize * 3),
+        y: Math.cos(this.time * 2) * (this.dialSize * 3),
         // x: this.mouse.x,
         // y: this.mouse.y,
-        z: this.dialSize,
+        z: this.dialSize * 0.3,
       });
     },
     setDimensions() {
@@ -191,6 +194,8 @@ export default {
         const y = cy + r * Math.sin(angle);
 
         // Create the sphere and position it at the calculated coordinates
+        const radius = Math.min(6, Math.round(this.w * 0.006));
+        sphere.geometry = new THREE.SphereGeometry(radius);
         sphere.position.set(x, y, 0);
       });
     },
