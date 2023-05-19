@@ -28,7 +28,7 @@ export const useUIStore = defineStore("ui", {
     docWidth: null,
     docHeight: null,
     userHasInteractedWithDom: false,
-    styleIsVisible: false,
+    styleIsVisible: true,
     timeIsVisible: false,
     headerIsFixed: false,
   }),
