@@ -83,7 +83,7 @@ definePageMeta({
   },
 });
 
-const pageTitle = `Kala - An interactive online tool that visualizes the passing of time`;
+const pageTitle = `Kala`;
 
 useHead({
   title: pageTitle,
