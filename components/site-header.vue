@@ -1,7 +1,10 @@
 <template>
   <ClientOnly>
     <header :class="{ fixed: storeUI.headerIsFixed }">
-      <h1 class="visually-hidden">Time, a project by Jordan Egstad.</h1>
+      <h1 class="visually-hidden">
+        Kala. A clock that visualizes the passing of time. Built by Design
+        Business Company.
+      </h1>
 
       <AtomsPill>
         <template #label>
@@ -62,6 +65,31 @@
         </template>
       </AtomsPill>
 
+      <AtomsPill v-if="storeUI.zoomIsVisible">
+        <template #label>
+          <p>Zoom</p>
+        </template>
+
+        <template #input>
+          <input
+            v-model="storeUI.zoomSelected"
+            type="range"
+            @input="onZoomChange"
+            name="zoom"
+            min="1"
+            :max="maxZoom"
+            style="direction: rtl"
+          />
+
+          <span
+            v-if="storeUI.zoomOverride"
+            style="margin-left: calc(var(--unit) * 0.5)"
+          >
+            <button @click="resetColumnCount">Reset</button>
+          </span>
+        </template>
+      </AtomsPill>
+
       <AtomsPill v-if="storeUI.zenIsVisible">
         <template #label>
           <p>Zen</p>
@@ -89,31 +117,6 @@
             />
             <span class="slider round"></span>
           </label>
-        </template>
-      </AtomsPill>
-
-      <AtomsPill v-if="storeUI.zoomIsVisible">
-        <template #label>
-          <p>Zoom</p>
-        </template>
-
-        <template #input>
-          <input
-            v-model="storeUI.zoomSelected"
-            type="range"
-            @input="onZoomChange"
-            name="zoom"
-            min="1"
-            :max="maxZoom"
-            style="direction: rtl"
-          />
-
-          <span
-            v-if="storeUI.zoomOverride"
-            style="margin-left: calc(var(--unit) * 0.5)"
-          >
-            <button @click="resetColumnCount">Reset</button>
-          </span>
         </template>
       </AtomsPill>
     </header>

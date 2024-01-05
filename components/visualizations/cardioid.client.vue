@@ -153,6 +153,7 @@ watch(progress, (newVal) => {
  * ------------------------------------------------------------------------- */
 
 const rafCallback = () => {
+  if (!p5El.value) return;
   p5Instance.value.redraw();
 
   // raf.value = requestAnimationFrame(rafCallback);

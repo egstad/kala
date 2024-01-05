@@ -1,9 +1,10 @@
 <template>
   <div>
     <SiteHeader />
-    <NuxtLayout>
+    <NuxtLayout class="site-content">
       <NuxtPage />
     </NuxtLayout>
+    <SiteFooter />
   </div>
 </template>
 
