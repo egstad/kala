@@ -1,10 +1,10 @@
 const defaults = {
   title: "Kala",
   description:
-    "An interactive online tool that visualizes the passing of time.",
+    "A clock that visualizes the passing of time. Built by Design Business Company.",
   image: "https://kala.watch/images/meta/kala-thumbnail.png",
   twitterCard: "summary_large_image",
-  twitterCreator: "@jordanegstad",
+  twitterCreator: "@designbizco",
 };
 
 export function setMetaTags(options = defaults) {
