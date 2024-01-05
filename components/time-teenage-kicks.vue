@@ -8,7 +8,7 @@
       :progress="progress"
       :variant="props.variant"
       class="time__content"
-      name="Teenage Kicks"
+      name="&ldquo;Teenage Kicks&rdquo; by The Undertones"
     />
   </div>
 </template>
