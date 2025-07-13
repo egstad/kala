@@ -49,6 +49,6 @@ const animate = () => {
 }
 
 .content__wrap {
-  width: 100vw;
+  width: 100%;
 }
 </style>
