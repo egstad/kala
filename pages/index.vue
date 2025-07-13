@@ -127,6 +127,8 @@ useServerSeoMeta(
 
 .grid :deep(.time__content) {
   aspect-ratio: 1/1;
+  width: 100%;
+  height: auto;
 }
 
 .meta {
